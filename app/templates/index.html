@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hello {{ user.username }}, welcome to Cosy Coach Survivor!</h1>
+    <h1>Hello {{ user.username }}, welcome to Cosy Couch Survivor!</h1>
     <h2>Here's all the latest Survivor gossip</h2>
     {% for item in comments %}
         <div><p>{{ item.User }} says: <b>{{ item.Comment }}</b></p></div>

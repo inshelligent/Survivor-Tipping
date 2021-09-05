@@ -1,17 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Londrina+Solid);
+
 * {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .table {
-    border-spacing: 0;
-    margin: 1rem;
-    background-color: #dd940d;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+.header {
+  text-align: center;
+  background-color: rgb(118, 67, 48);
+  color: #e3a537;
+  font-size: 14pt;
+  padding: 5px;
+  font-family: 'Londrina Solid', cursive, Arial, Helvetica, sans-serif;
+}
+
+/* Style the tables */
+.table {
+  border-spacing: 0;
+  margin: 1rem;
+  background-color: #dd940d;
 }
 .table-row:nth-child(even) {
     background-color: #faf4c3
@@ -22,44 +35,45 @@
 .table-cell {
     padding: 10px;
 }
-  /* Style the top navigation bar */
-  .topnav {
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  /* Style the topnav links */
-  .topnav a {
-    float: left;
-    display: block;
-    color: #dd940d;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  /* Change color on hover */
-  .topnav a:hover {
-    background-color: rgb(250, 215, 102);
-    color: black;
-  }
-  
-  /* Style logo */
-  .logo {
-    float:right;
-    vertical-align: top;
-    z-index: 2;
-  }
 
-  /* Style the content */
-  .content {
-    background-color: rgb(250, 215, 102);
-    padding: 10px;
-  }
-  
-  /* Style the footer */
-  .footer {
-    background-color: rgb(75, 2, 2);
-    color: #dd940d;
-    padding: 10px;
-  }
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #e3a537;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: rgb(246, 229, 138);
+  color: black;
+}
+
+/* Style logo */
+.logo {
+  float:right;
+  vertical-align: top;
+  z-index: 2;
+}
+
+/* Style the content */
+.content {
+  background-color: rgb(246, 229, 138);
+  padding: 10px;
+}
+
+/* Style the footer */
+.footer {
+  background-color: rgb(118, 67, 48);
+  color: #e3a537;
+  padding: 10px;
+}
