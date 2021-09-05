@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action = "signup-received" method="POST" id = 'form-sign-up'>
+        <label for = 'name'>Nick name: </label>
+        <input type="text" name = 'name' id= 'name' />
+        <p></p>
+        <label for = 'name'>Domain / subject area: </label>
+        <input type="text" name = 'domain' id= 'domain' />
+        <p></p>
+        <label for = 'pword'>Password: </label>
+        <input type="password" name = 'pword' id= 'pword' />
+        <p></p>
+        <p><input type="submit" value = "Sign Up" /></p>
+    </form>
+{% endblock %}

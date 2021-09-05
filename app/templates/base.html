@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+      {% if title %}
+      <title>{{ title }}</title>
+      {% else %}
+      <title>Welcome to My Site</title>
+      {% endif %}
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="/index">Home</a>
+            <a href="/contestants">Contestants</a>
+            <a href="/bet">Vote</a>
+            <a href="/sign_up" style="float:right">Sign Up</a>
+            <a href="/login" style="float:right">Login</a>
+        </div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
+        </div>
+        <div class='content'>
+        {% block content %}{% endblock %}
+        </div>
+        <div class="footer">
+            <p>Staff social event: Survivor Tipping Game</p>
+        </div>
+    </body>
+</html>

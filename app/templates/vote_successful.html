@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-cell">Voter Name </th>
+            <th class="table-cell">Tribal Date</th>
+            <th class="table-cell">Registered vote for</th>
+        </tr>
+            <tr class="table-row">
+                <td class="table-cell">{{ vote.voter }}</td>
+                <td class="table-cell">{{ vote.date }}</td>
+                <td class="table-cell">{{ vote.name}}</td>
+            </tr>
+    </table>
+{% endblock %}

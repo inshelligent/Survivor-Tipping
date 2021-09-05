@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-cell">Name</th>
+            <th class="table-cell">Age</th>
+            <th class="table-cell">Occupation</th>
+            <th class="table-cell">About</th>
+        </tr>
+        {% for p in players %}
+            <tr class="table-row">
+                <td class="table-cell">{{ p.name }}</td>
+                <td class="table-cell">{{ p.age }}</td>
+                <td class="table-cell">{{ p.occupation}}</td>
+                <td class="table-cell">{{ p.info}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
