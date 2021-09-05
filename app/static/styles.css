@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Londrina+Solid);
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
 * {
   box-sizing: border-box;
@@ -10,14 +10,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+  font-family: 'Acme', Arial, Helvetica, sans-serif;
+}
+
 /* Style the header */
 .header {
   text-align: center;
   background-color: rgb(118, 67, 48);
   color: #e3a537;
-  font-size: 14pt;
-  padding: 5px;
-  font-family: 'Londrina Solid', cursive, Arial, Helvetica, sans-serif;
+  font-size: 60pt;
+  font-family: 'Acme', Arial, Helvetica, sans-serif;
 }
 
 /* Style the tables */

@@ -1,7 +1,9 @@
-import csv
 from app import app
 from flask import Flask, render_template, request
+import csv
+
 TITLE = "Cosy Couch Survivor"
+
 def load_from_file(fname):
     # loads the contents from a given csv file
     contents = []
@@ -26,7 +28,6 @@ def orders():
 @app.route('/contestants')
 def menu():
     players = load_from_file('competitors.csv')
-        
     return render_template('contestants.html', players=players, title=TITLE)
 
 @app.route('/bet', methods = ['GET', 'POST'])
