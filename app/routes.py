@@ -64,13 +64,27 @@ def sign_up():
 
 @app.route('/signup-received', methods = ["POST"])
 def submit_sign_up():
-    #print(request.form)
-    #return ("Sign Up received")
 
     new_user = {}
     if request.method == "POST":
         new_user['name'] = request.form.get('name')
+        new_user['username'] = request.form.get('username')
         new_user['pword'] = request.form.get('pword')
-        new_user['domain'] = request.form.get('domain')
+        new_user['email'] = request.form.get('email')
+        new_user['score'] = 0
 
         return render_template('sign_up_received.html', new_user = new_user, title=TITLE)
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/login-received', methods = ["POST"])
+def check_login():
+    if request.method == "POST":
+        user_name = request.form.get('username')
+        pword = request.form.get('pword')
+        # Add verfication and if statement depending on results, dummy code assumes 
+        comments = load_from_file('chat.csv')
+        user = {'username': user_name}
+        return render_template('index.html', title=TITLE, user=user, comments=comments)

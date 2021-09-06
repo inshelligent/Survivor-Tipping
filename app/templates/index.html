@@ -3,6 +3,8 @@
 {% block content %}
     <h1>Hello {{ user.username }}, welcome to Cosy Couch Survivor!</h1>
     <h2>Here's all the latest Survivor gossip</h2>
+    <!-- Displaying the last five comments from the apps users about the game. 
+        In this version the chat feature is not functional -->
     {% for item in comments %}
         <div><p>{{ item.User }} says: <b>{{ item.Comment }}</b></p></div>
     {% endfor %}

@@ -8,6 +8,8 @@
             <th class="table-cell">Occupation</th>
             <th class="table-cell">About</th>
         </tr>
+        <!-- Populate table from all contestants in Contestants table. 
+            Use visual cue to highlight eliminated contestants -->
         {% for p in players %}
             <tr class="table-row">
                 <td class="table-cell">{{ p.name }}</td>

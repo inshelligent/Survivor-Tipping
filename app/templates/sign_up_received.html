@@ -4,13 +4,13 @@
     <table class="table">
         <tr class="table-header">
             <th class="table-cell">Name</th>
-            <th class="table-cell">Password</th>
-            <th class="table-cell">Domain</th>
+            <th class="table-cell">Email</th>
+            <th class="table-cell">Username</th>
         </tr>
             <tr class="table-row">
                 <td class="table-cell">{{ new_user.name }}</td>
-                <td class="table-cell">${{ new_user.pword }}</td>
-                <td class="table-cell">{{ new_user.domain}}</td>
+                <td class="table-cell">{{ new_user.email }}</td>
+                <td class="table-cell">{{ new_user.username}}</td>
             </tr>
     </table>
 {% endblock %}

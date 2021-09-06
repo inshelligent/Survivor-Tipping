@@ -2,15 +2,20 @@
 
 {% block content %}
     <form action = "signup-received" method="POST" id = 'form-sign-up'>
-        <label for = 'name'>Nick name: </label>
+        <label for = 'name'>Name: </label>
         <input type="text" name = 'name' id= 'name' />
         <p></p>
-        <label for = 'name'>Domain / subject area: </label>
-        <input type="text" name = 'domain' id= 'domain' />
+        <label for = 'email'>Email: </label>
+        <input type="text" name = 'email' id= 'email' />
         <p></p>
+        <label for = 'username'>User name: </label>
+        <input type="text" name = 'username' id= 'username' />
+        <p>Valid usernames must contain only characters 0-9, a-z, A-Z, and underscores (_). 
+            Usernames must be between 6-12 characters long.</p>
         <label for = 'pword'>Password: </label>
         <input type="password" name = 'pword' id= 'pword' />
-        <p></p>
+        <p>Valid passwords must contain only characters 0-9, a-z, A-Z, and underscores (_). 
+            Passwords must be between 6-12 characters long.</p>
         <p><input type="submit" value = "Sign Up" /></p>
     </form>
 {% endblock %}

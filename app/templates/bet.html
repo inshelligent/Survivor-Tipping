@@ -6,14 +6,17 @@
     <div><p>{{ how_to }} </p></div>
     <h2>Enter your vote for {{ date }}</h2>
 <form method="POST" class="pure-form pure-form-stacked">
+    <!-- The username is set to the user logged in, if no value redirect to the login page -->
     <label for="user">User name: </label>
     <input type="text" name="voter" id="voter" value={{ user.username }}>
     <br>
+    <!-- The date should be set from the Tribals table to tribal date greater than but closest to now -->
     <label for="start">Start date:</label>
     <input type="date" id="tribal_date" name="tribal_date"
        value="2021-08-30"
        min="2021-08-30" max="2021-08-30">
     <br>
+    <!-- The contestants options will be set from the Contestants table where is_eliminated equals FALSE -->
     <label for="Contestant">Contestant name:</label>
     <select name="contestant" id="contestant">
         {% for x in contestants_left %}
