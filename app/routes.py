@@ -17,7 +17,8 @@ def load_from_file(fname):
 @app.route('/index')
 def index():
     comments = load_from_file('chat.csv')
-    user = {'username': 'Kylie'}
+#    user = {'username': 'Kylie'}
+    user = ""
     return render_template('index.html', title=TITLE, user=user, comments=comments)
 
 # adding new navigation links

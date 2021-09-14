@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hello {{ user.username }}, welcome to Cosy Couch Survivor!</h1>
+    {% if user.username %}
+        <h1>Hello {{ user.username }}, welcome to Cosy Couch Survivor!</h1>
+    {% else %}
+        <h1>Hello and welcome to Cosy Couch Survivor!</h1>
+    {% endif %}
     <h2>Here's all the latest Survivor gossip</h2>
     <!-- Displaying the last five comments from the apps users about the game. 
         In this version the chat feature is not functional -->
