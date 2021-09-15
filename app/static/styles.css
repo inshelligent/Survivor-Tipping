@@ -13,13 +13,19 @@ body {
 
 /* Style the content */
 .content {
-  background-color: rgb(246, 229, 138, 0.5);
-  border-radius: 15px;
   margin: 20px;
   padding: 20px;
-  border-color: rgb(118, 67, 48);
-  vertical-align: middle;
+}
+
+.text-area {
+  margin: 20px;
+  padding: 20px;
+  border:1px solid rgb(118, 67, 48);
+  border-radius: 15px;
   width: 80%;
+  display: block;
+	text-align: left;
+  background-color: rgb(246, 229, 138, 0.5);
 }
 
 h1 {
