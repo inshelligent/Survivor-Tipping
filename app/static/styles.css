@@ -54,7 +54,7 @@ h1 {
 /* Style the top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #210f0f;
 }
 
 /* Style the topnav links */
@@ -78,6 +78,24 @@ h1 {
   float:right;
   vertical-align: top;
   z-index: 2;
+}
+
+/* Style the login buttons on home page */
+.homeloginbuttons {
+  text-align: center;
+  padding: 10px 10px;
+  margin: 25px;
+}
+
+.link-button {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  background: #566e3d;
+  padding: 10px;
+  border-radius: 15px;
+  text-decoration: none;
 }
 
 /* Style the footer */
