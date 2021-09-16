@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="text-area">
     <form action = "signup-received" method="POST" id = 'form-sign-up'>
         <label for = 'name'>Name: </label>
         <input type="text" name = 'name' id= 'name' />
@@ -16,6 +17,7 @@
         <input type="password" name = 'pword' id= 'pword' />
         <p>Valid passwords must contain only characters 0-9, a-z, A-Z, and underscores (_). 
             Passwords must be between 6-12 characters long.</p>
-        <p><input type="submit" value = "Sign Up" /></p>
+        <p><input class="link-button" type="submit" value = "Sign Up" /></p>
     </form>
+    </div>
 {% endblock %}

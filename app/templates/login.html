@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="text-area">
     <form action = "login-received" method="POST" id = 'form-login'>
         <label for = 'username'>User name: </label>
         <input type="text" name = 'username' id= 'username' />
@@ -10,6 +11,7 @@
         <input type="password" name = 'pword' id= 'pword' />
         <p>Valid passwords must contain only characters 0-9, a-z, A-Z, and underscores (_). 
             Passwords must be between 6-12 characters long.</p>
-        <p><input type="submit" value = "Login" /></p>
+        <p><input class="link-button" type="submit" value = "Login" /></p>
     </form>
+    </div>
 {% endblock %}
