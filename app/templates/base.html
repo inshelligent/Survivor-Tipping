@@ -9,22 +9,26 @@
       {% endif %}
     </head>
     <body>
-        <div class="header">
-            Cosy Couch Survivor
-        </div>
-        <div class="topnav">
-            <a href="/index">Home</a>
-            <a href="/contestants">Contestants</a>
-            <a href="/bet">Vote</a>
-            <a href="/sign_up" style="float:right">Sign Up</a>
-            <a href="/login" style="float:right">Login</a>
-        </div>
-        <div class="logo">
-            <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
-        </div>
         <div class='content'>
-        {% block content %}{% endblock %}
+            <div class="header">
+                Cosy Couch Survivor
+            </div>
+            <div class="topnav">
+                <a href="/index">Home</a>
+                <a href="/contestants">Contestants</a>
+                <a href="/bet">Vote</a>
+                <a href="/sign_up" style="float:right">Sign Up</a>
+                <a href="/login" style="float:right">Login</a>
+            </div>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
+            </div>
+            <div class='content-inside'>
+                {% block content %}{% endblock %}
+            </div>
         </div>
+    </div>
+    <div class="clear"></div>
         <div class="footer">
             <p>Privacy Policy | Contact Us | Copyright 2021 | Created by EDPF5023 Legends aka Kylie, Troy & Michelle</p>
         </div>
