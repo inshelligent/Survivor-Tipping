@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ user.username }}, who's going home tonight?</h1>
-    <h2>Rules</h2>
+    <h1>{{ title }} - who's going home tonight?</h1>
+    <h2>Rules:</h2>
     <div><p>{{ how_to }} </p></div>
     <div class="text-area">
-    <h2>Enter your vote for {{ date }}</h2>
+    <h2>{{ user.username }}, enter your vote for {{ date }}</h2>
     <form method="POST" class="pure-form pure-form-stacked">
         <!-- The username is set to the user logged in, if no value redirect to the login page -->
         <label for="user">User name: </label>

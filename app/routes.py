@@ -30,7 +30,7 @@ def index():
 def menu():
     players = load_from_file('competitors.csv')
     # Returns the view with list of contestants
-    return render_template('contestants.html', players=players, title=TITLE)
+    return render_template('contestants.html', players=players, title="Meet the contestants")
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/bet', methods = ['GET', 'POST'])
@@ -53,7 +53,7 @@ def bet():
             writer.writerows(votes)
         
         # Returns the view with a message that the student has been added
-        return render_template('vote_successful.html', vote = vote, title=TITLE)
+        return render_template('vote_successful.html', vote = vote, title="Vote Placed")
 
     else:
         user = {'username': 'Kylie'}  # hard-coded for now
@@ -61,12 +61,12 @@ def bet():
         contestants_left = ["Hayley", "George", "Wai", "Flick", "Cara"]  # hard-coded for now
         today = date.today()
         # Returns the view with a message of how to bet, and list of remaining contestants
-        return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title=TITLE)
+        return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title="Voting")
 
 # Send user to Sign-up / registration page
 @app.route('/sign_up')
 def sign_up():
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', title="Sign Up")
 
 # Do Sign-up / registration form submit
 @app.route('/signup-received', methods = ["POST"])
@@ -79,12 +79,12 @@ def submit_sign_up():
         new_user['email'] = request.form.get('email')
         new_user['score'] = 0
         # Returns the view with a message that the user has been added
-        return render_template('sign_up_received.html', new_user = new_user, title=TITLE)
+        return render_template('sign_up_received.html', new_user = new_user, title="Sign Up Successful")
 
 # send user to the login page
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', title="Log In")
 
 # Do login page form submit
 @app.route('/login-received', methods = ["POST"])
