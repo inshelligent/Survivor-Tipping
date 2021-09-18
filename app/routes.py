@@ -1,3 +1,4 @@
+from datetime import date
 from app import app
 from flask import Flask, render_template, request
 import csv
@@ -56,10 +57,11 @@ def bet():
 
     else:
         user = {'username': 'Kylie'}  # hard-coded for now
-        how_to='This is how to bet'
+        how_to='This is how to vote'
         contestants_left = ["Hayley", "George", "Wai", "Flick", "Cara"]  # hard-coded for now
+        today = date.today()
         # Returns the view with a message of how to bet, and list of remaining contestants
-        return render_template('bet.html', user=user, how_to=how_to, contestants_left=contestants_left, title=TITLE)
+        return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title=TITLE)
 
 # Send user to Sign-up / registration page
 @app.route('/sign_up')
