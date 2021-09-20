@@ -91,7 +91,7 @@ h1 {
 
 /* Change color on hover */
 .topnav a:hover {
-  background-color: rgb(246, 229, 138);
+  background-color: #566e3d;
   color: black;
 }
 
