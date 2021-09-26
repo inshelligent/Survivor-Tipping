@@ -1,13 +1,11 @@
-from datetime import date
-from app import app
-from flask import Flask, render_template, request
 import csv
-# Import sqlalchemy function required to write to database and Classes for defining table columns 
-from sqlalchemy import create_engine, Column, Integer, Text, Boolean
-# Import functions from SQLAlchemy ORM for defining entities and managing connection to SQLite database
-from sqlalchemy.orm import declarative_base, sessionmaker
-# Connects SQLAlchemy to a records.db SQLite dabase, creating it if it doesn't already exist
-engine = create_engine('sqlite:///survivor.db', echo=True)
+from datetime import date
+
+from flask import render_template, request  # Flask is already imported in _init_
+
+from app import app, db
+
+from app.models import Contestant
 
 TITLE = "Cosy Couch Survivor"
 
@@ -35,23 +33,12 @@ def index():
 @app.route('/contestants')
 def contestants():
     #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
-    Base = declarative_base()
-    # Defines a class for our Student entity, with relevant columns
-    class Contestant(Base):
-        __tablename__ = 'contestants'
-        id = Column(Integer, primary_key=True)
-        name = Column(Text)
-        age = Column(Integer)
-        occupation = Column(Integer)
-        description = Column(Integer)
-        is_eliminated = Column(Boolean)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    # The records from the table are retrieved and put in an Iterable (essentially a list)
-    players = session.query(Contestant).all()
+
+    # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
+    contestants = Contestant.query.all()
 
     # Returns the view with list of contestants
-    return render_template('contestants.html', players=players, title="Meet the contestants, FETCHING FROM THE DB YO!")
+    return render_template('contestants.html', players=contestants, title="Meet the contestants, CREATING THE DB YO!")
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/bet', methods = ['GET', 'POST'])
