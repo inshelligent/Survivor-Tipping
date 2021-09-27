@@ -11,6 +11,7 @@ CREATE TABLE "tribals" (
 	"tribal_date"	INTEGER NOT NULL,
 	"voted_out"	INTEGER NOT NULL,
 	PRIMARY KEY("tribal_date")
+	FOREIGN KEY("voted_out") REFERENCES "contestants"("id"),
 );
 CREATE TABLE "users" (
 	"id"	INTEGER NOT NULL UNIQUE,
