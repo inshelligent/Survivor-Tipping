@@ -33,12 +33,10 @@ def index():
 @app.route('/contestants')
 def contestants():
     #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
-
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
     contestants = Contestant.query.all()
-
     # Returns the view with list of contestants
-    return render_template('contestants.html', players=contestants, title="Meet the contestants, CREATING THE DB YO!")
+    return render_template('contestants.html', players=contestants, title="Meet the contestants (fetching from the DB!")
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/bet', methods = ['GET', 'POST'])
