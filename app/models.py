@@ -9,6 +9,7 @@ class Contestant(db.Model):
     description = db.Column(db.String(500))
     is_eliminated = db.Column(db.Boolean)
     tribals = db.relationship('Tribal', backref=db.backref('contestant', lazy=False))
+    votes = db.relationship('Vote', backref=db.backref('contestant', lazy=False))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -19,6 +20,7 @@ class User(db.Model):
     surname = db.Column(db.String(50), nullable=False)
     user_level = db.Column(db.String(20), nullable=False)
     score = db.Column(db.Integer, default=0)
+    votes = db.relationship('Vote', backref=db.backref('user', lazy=False))
 
 class Tribal(db.Model):
     tribal_date = db.Column(db.DateTime, primary_key=True, nullable=False)
