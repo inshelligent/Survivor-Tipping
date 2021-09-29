@@ -1,11 +1,12 @@
 import csv
 from datetime import date
 
-from flask import render_template, request  # Flask is already imported in _init_
+from flask import render_template, request, redirect, url_for  # Flask is already imported in _init_
 
 from app import app, db
 
-from app.models import Contestant
+from app.models import Contestant, User, Tribal, Vote
+from app.forms import AddVoteForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -42,24 +43,19 @@ def contestants():
 @app.route('/bet', methods = ['GET', 'POST'])
 def bet():
     # Check if the form has been submitted (is a POST request)
-    if request.method == 'POST':
-        # Get data from the form and put in dictionary
-        vote = {}
-        vote['voter'] = request.form.get('voter')
-        vote['date'] = request.form.get('tribal_date')
-        vote['name'] = request.form.get('contestant')
-        # Load the votes from the CSV file and add the vote
-        votes = load_from_file('votes.csv')
-        votes.append(vote)
-        # Open up the csv file and overwrite the contents
-        with open('votes.csv', 'w', newline='') as file:
-            fieldnames = ['voter', 'date', 'name']
-            writer = csv.DictWriter(file, fieldnames = fieldnames)
-            writer.writeheader()
-            writer.writerows(votes)
+    #if request.method == 'POST':
+    form = AddVoteForm
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a Vote object for saving to the database, mapping form inputs to object
+        vote = Vote()
+        form.populate_obj(obj=vote)
+        # Adds the fruit object to session for creation and saves changes to db
+        db.session.add(vote)
+        db.session.commit()
         
         # Returns the view with a message that the student has been added
-        return render_template('vote_successful.html', vote = vote, title="Vote Placed")
+        #return render_template('vote_successful.html', vote = vote, title="Vote Placed")
 
     else:
         user = {'username': 'Kylie'}  # hard-coded for now
@@ -67,7 +63,8 @@ def bet():
         contestants_left = ["Hayley", "George", "Wai", "Flick", "Cara"]  # hard-coded for now
         today = date.today()
         # Returns the view with a message of how to bet, and list of remaining contestants
-        return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title="Voting")
+        #return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title="Voting")
+        return render_template('bet.html', form = form, title="Voting")
 
 # Send user to Sign-up / registration page
 @app.route('/sign_up')

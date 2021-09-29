@@ -6,18 +6,40 @@
     <div><p>{{ how_to }} </p></div>
     <div class="text-area">
     <h2>{{ user.username }}, enter your vote for {{ date }}</h2>
+    <ul class="errors">
+        {% for field, errors in form.errors.items() %}
+            <li>
+                {{ form[field].label }} {{ ', '.join(errors) }}
+            </li>
+        {% endfor %}
+    </ul>
     <form method="POST" class="pure-form pure-form-stacked">
-        <!-- The username is set to the user logged in, if no value redirect to the login page -->
+        {{ form.voter_id.label }}
+        {{ form.voter_id }}
+    
+        {{ form.tribal_date.label }}
+        {{ form.tribal_date }}
+    
+        {{ form.first_vote.label }}
+        {{ form.first_vote }}
+    
+        {{ form.second_vote.label }}
+        {{ form.second_vote }}
+
+        {{ form.third_vote.label }}
+        {{ form.third_vote }}
+
+        <!-- The username is set to the user logged in, if no value redirect to the login page 
         <label for="user">User name: </label>
         <input type="text" name="voter" id="voter" value={{ user.username }}>
         <br>
-        <!-- The date should be set from the Tribals table to tribal date greater than but closest to now -->
+        <!-- The date should be set from the Tribals table to tribal date greater than but closest to now 
         <label for="start">Start date:</label>
         <input type="date" id="tribal_date" name="tribal_date"
         value={{ date }}
         min="2021-08-30" max="2021-08-30">
         <br>
-        <!-- The contestants options will be set from the Contestants table where is_eliminated equals FALSE -->
+        <!-- The contestants options will be set from the Contestants table where is_eliminated equals FALSE 
         <label for="Contestant">Contestant name:</label>
         <select name="contestant" id="contestant">
             {% for x in contestants_left %}
@@ -25,7 +47,8 @@
             {% endfor %}
         </select>
         <br>&nbsp;<br>
-        <input type="submit" class="link-button" value="Place Vote" />
+        <input type="submit" class="link-button" value="Place Vote" /> -->
+        {{ form.submit(class_="pure-button pure-button-primary") }}
     </form>
 </div>
 {% endblock %}

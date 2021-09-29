@@ -9,7 +9,9 @@ class Contestant(db.Model):
     description = db.Column(db.String(500))
     is_eliminated = db.Column(db.Boolean)
     tribals = db.relationship('Tribal', backref=db.backref('contestant', lazy=False))
-    votes = db.relationship('Vote', backref=db.backref('contestant', lazy=False))
+
+    def __repr__(self):
+        return f'{self.name}'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -20,11 +22,17 @@ class User(db.Model):
     surname = db.Column(db.String(50), nullable=False)
     user_level = db.Column(db.String(20), nullable=False)
     score = db.Column(db.Integer, default=0)
-    votes = db.relationship('Vote', backref=db.backref('user', lazy=False))
+
+    def __repr__(self):
+        return f'{self.id} {self.username} {self.firstname}'
+
 
 class Tribal(db.Model):
     tribal_date = db.Column(db.DateTime, primary_key=True, nullable=False)
     voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
+    
+    def __repr__(self):
+        return f'{self.tribal_date} {self.voted_out_id}'
 
 class Vote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True, nullable=False)
@@ -32,3 +40,6 @@ class Vote(db.Model):
     first_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
     second_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     third_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
+    
+    def __repr__(self):
+        return f'{self.user_id} {self.tribal_date} {self.first_choice_id}'
