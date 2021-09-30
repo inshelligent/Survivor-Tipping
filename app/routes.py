@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for  # Flask is alread
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm
+from app.forms import AddVoteForm, AddContestant
 
 TITLE = "Cosy Couch Survivor"
 
@@ -39,12 +39,30 @@ def contestants():
     # Returns the view with list of contestants
     return render_template('contestants.html', players=contestants, title="Meet the contestants (fetching from the DB!")
 
+@app.route('/add_contestant', methods=['GET', 'POST'])
+def add_contestant():
+    form = AddContestant()
+    # Check if the form has been submitted (is a POST request) and form inputs are valid
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a Contestant object for saving to the database, mapping form inputs to object
+        contestant = Contestant()
+        form.populate_obj(obj=contestant)
+        # Adds the contestant object to session for creation and saves changes to db
+        db.session.add(contestant)
+        db.session.commit()
+        
+        # Returns the view with a message that the contestant has been added
+        return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
+    # When there is a GET request, the view with the form is returned
+    return render_template('add_contestant.html', form = form)
+
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/bet', methods = ['GET', 'POST'])
 def bet():
     # Check if the form has been submitted (is a POST request)
     #if request.method == 'POST':
-    form = AddVoteForm
+    form = AddVoteForm()
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
         # Create a Vote object for saving to the database, mapping form inputs to object

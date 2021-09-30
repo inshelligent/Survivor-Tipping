@@ -6,10 +6,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///survivor.db'
 # allow us to see the SQL commands that are being run and any errors/messages to help with debugging
 app.config['SQLALCHEMY_ECHO'] = True
+# stops cross-script forgery, used with WTForms
+app.config['SECRET_KEY'] = 'Survive-is-the-key'
 
 db = SQLAlchemy(app)
 
-from app import models, routes
+from app import models, forms, routes
 
 @app.cli.command('create-db')
 def create_db():
