@@ -65,7 +65,7 @@ def create_db():
                         age=47, 
                         occupation='Real Estate Agent', 
                         description="Real Estate Agency Owner Cara, may be known as the Duchess of Double Bay, but can she bring her reign to the Outback? At the age of 20, the quirky adventure seeker realised that she had a secret power. As an empath, Cara can sense and feel emotions as if they're part of her own experience and someone else's pain and happiness, become her own.", 
-                        is_eliminated=False)
+                        is_eliminated=True)
     db.session.add(cara)
 
     # Save the created records to the database file

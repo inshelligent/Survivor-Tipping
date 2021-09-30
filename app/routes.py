@@ -37,7 +37,7 @@ def contestants():
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
     contestants = Contestant.query.all()
     # Returns the view with list of contestants
-    return render_template('contestants.html', players=contestants, title="Meet the contestants (fetching from the DB!")
+    return render_template('contestants.html', players=contestants, title="Meet the contestants")
 
 @app.route('/add_contestant', methods=['GET', 'POST'])
 def add_contestant():

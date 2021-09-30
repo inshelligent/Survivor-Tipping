@@ -11,7 +11,6 @@ class AddVoteForm(FlaskForm):
     submit = SubmitField('Place Vote')
 
 class AddContestant(FlaskForm):
-    id = IntegerField('Contestant ID', validators=[InputRequired()])
     name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])
     age = IntegerField('Age')
     occupation = StringField('Occupation')
