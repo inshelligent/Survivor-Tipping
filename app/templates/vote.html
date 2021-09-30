@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ title }} - who's going home tonight?</h1>
+    <h2>Rules:</h2>
+    <div><p>add text here!</p></div>
+    <div class="text-area">
+    <h2>Enter your votes</h2>
+    <ul class="errors">
+        {% for field, errors in form.errors.items() %}
+            <li>
+                {{ form[field].label }} {{ ', '.join(errors) }}
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" class="pure-form pure-form-stacked">
+        {{ form.csrf_token }}
+
+        {{ form.tribal_id.label }}
+        {{ form.tribal_id }}
+    <br/>
+        {{ form.first_vote.label }}
+        {{ form.first_vote }}
+    <br/>
+        {{ form.second_vote.label }}
+        {{ form.second_vote }}
+    <br/>
+        {{ form.third_vote.label }}
+        {{ form.third_vote }}
+
+        <br/>
+        {{ form.submit(class_="pure-button pure-button-primary") }}
+    </form>
+</div>
+{% endblock %}

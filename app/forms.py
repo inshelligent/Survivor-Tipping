@@ -1,14 +1,17 @@
+from datetime import date
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, BooleanField
+from wtforms import StringField, IntegerField, SubmitField, BooleanField, SelectField, DateTimeField
 from wtforms.validators import InputRequired, Length
 
+
 class AddVoteForm(FlaskForm):
-    voter_id = IntegerField('Voter ID:', validators = [InputRequired()])
-    tribal_date = StringField('Tribal Date:', validators = [InputRequired()])
-    first_vote = IntegerField('First vote: Contestant name:', validators = [InputRequired()])
-    second_vote = IntegerField('Second vote: Contestant name:')
-    third_vote = IntegerField('Third vote: Contestant name:')
+    #tribal_date = DateTimeField('Tribal Date:', format="%d-%m-%Y", default=date.today(), validators = [InputRequired()])
+    tribal_id = StringField('Tribal No:', validators = [InputRequired()])
+    first_vote = SelectField('First vote: Contestant name:', coerce=int, validators = [InputRequired()])
+    second_vote = SelectField('Second vote: Contestant name:', coerce=int)
+    third_vote = SelectField('Third vote: Contestant name:', coerce=int)
     submit = SubmitField('Place Vote')
+    
 
 class AddContestant(FlaskForm):
     name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])

@@ -28,18 +28,19 @@ class User(db.Model):
 
 
 class Tribal(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     tribal_date = db.Column(db.DateTime, primary_key=True, nullable=False)
     voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
     
     def __repr__(self):
-        return f'{self.tribal_date} {self.voted_out_id}'
+        return f'{self.tribal_id} {self.voted_out_id}'
 
 class Vote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True, nullable=False)
-    tribal_date = db.Column(db.DateTime, db.ForeignKey('tribal.tribal_date'), primary_key=True, nullable=False)
+    tribal_id = db.Column(db.Integer, db.ForeignKey('tribal.id'), primary_key=True, nullable=False)
     first_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
     second_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     third_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     
     def __repr__(self):
-        return f'{self.user_id} {self.tribal_date} {self.first_choice_id}'
+        return f'{self.user_id} {self.tribal_id} {self.first_choice_id}'

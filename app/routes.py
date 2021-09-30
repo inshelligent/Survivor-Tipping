@@ -21,6 +21,18 @@ def load_from_file(fname):
             contents.append(row)
     return contents
 
+def get_contestants_in_game():
+    # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
+    # This is used to populate the choices in the Contestants for each voting choice dropdown.
+    contestant_choices = []
+    for contestant in Contestant.query.all():
+        if contestant.is_eliminated==False:
+            choice = (contestant.id, contestant.name)
+            contestant_choices.append(choice)
+    return contestant_choices
+    #contestants = [(x.id, x.name) for x in Contestant.query.all() if x.is_eliminated==False]
+    #return contestants
+
 # HOMEPAGE
 @app.route('/')
 @app.route('/index')
@@ -59,32 +71,30 @@ def add_contestant():
     return render_template('add_contestant.html', form = form)
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
-@app.route('/bet', methods = ['GET', 'POST'])
-def bet():
-    
-    # Check if the form has been submitted (is a POST request)
-    #if request.method == 'POST':
+@app.route('/vote', methods = ['GET', 'POST'])
+def vote():
     form = AddVoteForm()
+    # gets the choices for the contestants form field
+    form.first_vote.choices = get_contestants_in_game()
+    form.second_vote.choices = get_contestants_in_game()
+    form.third_vote.choices = get_contestants_in_game()
+    # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
-        # Create a Vote object for saving to the database, mapping form inputs to object
+        # Get data from the form and put in a Vote object
         vote = Vote()
         form.populate_obj(obj=vote)
-        # Adds the fruit object to session for creation and saves changes to db
+        vote.user_id = 2          # !!! HARD CODED USER ID FOR NOW !!!
+        # Adds the vote object to session for creation and saves changes to db
         db.session.add(vote)
         db.session.commit()
         
         # Returns the view with a message that the student has been added
+        return redirect(url_for('vote_successful'))
         #return render_template('vote_successful.html', vote = vote, title="Vote Placed")
-
-    else:
-        how_to='This is how to vote'
-        user = {'username': 'Kylie'}  # hard-coded for now
-        contestants_left = ["Hayley", "George", "Wai", "Flick", "Cara"]  # hard-coded for now
-        today = date.today()
-        # Returns the view with a message of how to bet, and list of remaining contestants
-        #return render_template('bet.html', user=user, how_to=how_to, date=today, contestants_left=contestants_left, title="Voting")
-        return render_template('bet.html', form = form, title="Voting")
+    
+    # Returns the view with a message of how to bet, and list of remaining contestants
+    return render_template('vote.html', form = form, title="Voting")
 
 # Send user to Sign-up / registration page
 @app.route('/sign_up')
