@@ -53,13 +53,15 @@ def add_contestant():
         db.session.commit()
         
         # Returns the view with a message that the contestant has been added
-        return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
+        # return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
+        return redirect(url_for('contestants'))
     # When there is a GET request, the view with the form is returned
     return render_template('add_contestant.html', form = form)
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/bet', methods = ['GET', 'POST'])
 def bet():
+    
     # Check if the form has been submitted (is a POST request)
     #if request.method == 'POST':
     form = AddVoteForm()
@@ -76,8 +78,8 @@ def bet():
         #return render_template('vote_successful.html', vote = vote, title="Vote Placed")
 
     else:
-        user = {'username': 'Kylie'}  # hard-coded for now
         how_to='This is how to vote'
+        user = {'username': 'Kylie'}  # hard-coded for now
         contestants_left = ["Hayley", "George", "Wai", "Flick", "Cara"]  # hard-coded for now
         today = date.today()
         # Returns the view with a message of how to bet, and list of remaining contestants
