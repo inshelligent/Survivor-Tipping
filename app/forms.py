@@ -27,20 +27,18 @@ class AddVoteForm(FlaskForm):
         return result  """
     
 
-class AddContestant(FlaskForm):
+class AddContestantForm(FlaskForm):
     country = StringField('Country', default='Australia')
     season = IntegerField('Season', default=6)
     name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])
     age = IntegerField('Age')
     occupation = StringField('Occupation')
     description = StringField('Description')
-    is_eliminated = BooleanField('Is eliminated?')
+    is_eliminated = BooleanField('Is eliminated?', default=False)
     submit = SubmitField('Add Contestant')
 
-class EditContestant(FlaskForm):
-    name = SelectField('Contestant Name')
-    is_eliminated = BooleanField('Is eliminated?', default=True)
-    submit = SubmitField('Eliminate Contestant')
+class EditContestantForm(AddContestantForm):   # nice bit of inheritance happening here!
+    submit = SubmitField('Save Contestant')
 
 
 class AddUserForm(FlaskForm):

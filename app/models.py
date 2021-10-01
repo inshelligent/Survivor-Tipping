@@ -10,7 +10,7 @@ class Contestant(db.Model):
     occupation = db.Column(db.String(80))
     description = db.Column(db.String(500))
     is_eliminated = db.Column(db.Boolean)
-    tribals = db.relationship('Tribal', backref=db.backref('contestant', lazy=False))
+    tribals = db.relationship('Tribal', backref=db.backref('contestant'))
 
     def __repr__(self):
         return f'{self.name}'
@@ -24,6 +24,7 @@ class User(db.Model):
     surname = db.Column(db.String(50), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer, default=0)
+    #votes = db.relationship('Vote', backref=db.backref('user'))
 
     def __repr__(self):
             return f'{self.firstname}'

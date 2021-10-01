@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Enter contestant details</h2>
+<h2>Edit contestant: {{ contestant_name }}</h2>
 <ul class="errors">
 {% for field, errors in form.errors.items() %}
     <li>
@@ -13,6 +13,20 @@
 
     {{ form.name.label }}
     {{ form.name }}
+
+    {{ form.age.label }}
+    {{ form.age }}
+
+    {{ form.occupation.label }}
+    {{ form.occupation }}
+
+    {{ form.description.label }}
+    {{ form.description }}
+
+    <label>
+        {{ form.is_eliminated.label.text | safe }}
+        {{ form.is_eliminated }}
+    </label>
 
     <br/>
     {{ form.submit(class_="pure-button pure-button-primary") }}

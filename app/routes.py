@@ -1,12 +1,12 @@
 import csv
 from datetime import date
 
-from flask import render_template, request, redirect, url_for  # Flask is already imported in _init_
+from flask import render_template, request, redirect, url_for   # Flask is already imported in _init_
 
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestant, EditContestant, AddUserForm
+from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -35,27 +35,27 @@ def get_contestants_in_game():
     #return contestants
 
 def get_current_contestants():
-    ''' A helper function that returns a list of
-        tuples with contestant ids and names from the contestants table.
-        This is used to populate the choices in the Contestants for each voting choice dropdown.
-    '''
+    # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
+    # This is used to populate the choices in the Contestants for each voting choice dropdown.
     contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
     return contestants
+
+
 # HOMEPAGE
 @app.route('/')
 @app.route('/index')
 def index():
-#    user = {'username': 'Kylie'}   need to add some logic to check for logged in user
-    user = ""
-    comments = load_from_file('chat.csv')
+    user = ""   # need to add some logic to check for logged in user
+    comments = load_from_file('chat.csv')  # TO-DO IF TIME
     return render_template('index.html', title=TITLE, user=user, comments=comments)
 
 @app.route('/admin')
 def admin():
-    user = ""
+    user = ""   # need to add some logic to check for logged in user
     return render_template('admin.html', title=TITLE, user=user)
 
-# Send user to Contestants page which lists all the players/competitors in the show
+# CONTESTANTS SECTION #
+# Public Contestants page which lists all the players/competitors in the show, separated by eliminated status
 @app.route('/contestants')
 def contestants():
     #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
@@ -64,9 +64,16 @@ def contestants():
     # Returns the view with list of contestants
     return render_template('contestants.html', players=contestants, title="Meet the contestants")
 
+@app.route('/admin_contestants')
+def admin_contestants():
+    # The records from the table are retrieved and put in an iterable data structure
+    contestants = Contestant.query.all()
+    # Returns the view with list of contestants
+    return render_template('admin_contestants.html', contestants=contestants, title="Contestant Admin")
+
 @app.route('/add_contestant', methods=['GET', 'POST'])
 def add_contestant():
-    form = AddContestant()
+    form = AddContestantForm()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
@@ -79,30 +86,46 @@ def add_contestant():
         
         # Returns the view with a message that the contestant has been added
         # return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
-        return redirect(url_for('contestants'))
+        return redirect(url_for('admin_contestants'))
     # When there is a GET request, the view with the form is returned
     return render_template('add_contestant.html', form = form)
 
-@app.route('/edit_contestant', methods=['GET', 'POST'])
-def edit_contestant():
-    form = EditContestant()
-    form.name.choices = get_current_contestants()
+@app.route('/edit_contestant/<int:id>', methods = ['GET', 'POST'])
+def edit_contestant(id):
+    # Retrieves the contestant record for the given id, if it exists
+    contestant = Contestant.query.get_or_404(id)
+
+    # Creates a form for editing the contestant record, putting in the contestant record's details
+    form = EditContestantForm(id)
+    #form.name.choices = get_current_contestants()
+
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
         # Create a Contestant object for saving to the database, mapping form inputs to object
-        contestant = Contestant()
         form.populate_obj(obj=contestant)
         # Adds the contestant object to session for creation and saves changes to db
-        db.session.query.filter_by(contestant)
         db.session.commit()
         
         # Returns the view with a message that the contestant has been added
-        # return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
-        return redirect(url_for('contestants'))
-    # When there is a GET request, the view with the form is returned
-    return render_template('edit_contestant.html', form = form)
+        return redirect(url_for('admin_contestants'))
 
+    # When there is a GET request, the view with the form is returned
+    contestant_name = f'{contestant.name}'
+    return render_template('edit_contestant.html', form = form, contestant_name = contestant_name)
+
+@app.route('/delete_contestant/<int:id>')
+def delete_contestant(id):
+    # Retrieves the contestant record for the given id
+    contestant = Contestant.query.get_or_404(id)
+    # The fruit record is deleted
+    db.session.delete(contestant)
+    # The change (the deletion) are saved in the database file
+    db.session.commit()
+    # Returns the view that displays the list of fruits
+    return redirect(url_for('admin_contestants'))
+
+# VOTING SECTION #
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/vote', methods = ['GET', 'POST'])
 def vote():
@@ -131,6 +154,7 @@ def vote():
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('vote.html', form = form, title="Voting")
 
+# USER SECTION #
 # Send user to Sign-up / registration page
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -149,7 +173,7 @@ def sign_up():
 
     return render_template('sign_up.html', form = form, title="Sign Up")
 
-# Do Sign-up / registration form submit
+# ToDo - Sign-up / registration form submit
 @app.route('/signup-received', methods = ["POST"])
 def submit_sign_up():
     new_user = {}
@@ -167,7 +191,7 @@ def submit_sign_up():
 def login():
     return render_template('login.html', title="Log In")
 
-# Do login page form submit
+# ToDo - login page form submit
 @app.route('/login-received', methods = ["POST"])
 def check_login():
     if request.method == "POST":
@@ -178,3 +202,5 @@ def check_login():
         user = {'username': user_name}
         # Returns the view with a message that the user is now logged in
         return render_template('index.html', title=TITLE, user=user, comments=comments)
+
+
