@@ -50,6 +50,11 @@ def index():
     comments = load_from_file('chat.csv')
     return render_template('index.html', title=TITLE, user=user, comments=comments)
 
+@app.route('/admin')
+def admin():
+    user = ""
+    return render_template('admin.html', title=TITLE, user=user)
+
 # Send user to Contestants page which lists all the players/competitors in the show
 @app.route('/contestants')
 def contestants():

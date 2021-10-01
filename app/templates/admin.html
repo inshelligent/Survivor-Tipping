@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.username %}
+        <h1>Hello {{ user.username }}, welcome to the Admin Panel</h1>
+    {% else %}
+        <h1>Admin Panel</h1>
+    {% endif %}
+        
+    <div class="homeloginbuttons">
+        <a class="link-button" href="/add_contestant">Add Contestant</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="#">Edit/Delete Contestant</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="#">Add Tribal</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="#">Eliminate Contestant</a>&nbsp;&nbsp;&nbsp;
+    </div>
+{% endblock %}
