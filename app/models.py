@@ -36,8 +36,9 @@ class Tribal(db.Model):
  
 
 class Vote(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True, nullable=False)
-    tribal_id = db.Column(db.Integer, db.ForeignKey('tribal.id'), primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    tribal_id = db.Column(db.Integer, db.ForeignKey('tribal.id'), nullable=False)
     first_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
     second_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     third_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
