@@ -23,6 +23,8 @@ def create_db():
     # Create a contestant record for Hayley
     # description might be a bit long (92 characters truncated)
     hayley = models.Contestant(id=1, 
+                                season = 6,
+                                country = 'Australia',
                                 name='Hayley', 
                                 age=31, 
                                 occupation='Pain Researcher', 
@@ -33,6 +35,8 @@ def create_db():
     # Create a contestant record for George
     # description might be a bit long (13 characters truncated)
     george = models.Contestant(id=2, 
+                        season = 6,
+                        country = 'Australia',
                         name='George', 
                         age=31, 
                         occupation='Public Servant', 
@@ -42,6 +46,8 @@ def create_db():
 
     # Create a contestant record for Wai
     wai = models.Contestant(id=3, 
+                        season = 6,
+                        country = 'Australia',
                         name='Wai', 
                         age=38, 
                         occupation='Author', 
@@ -51,6 +57,8 @@ def create_db():
 
     # Create a contestant record for Flick
     flick = models.Contestant(id=4, 
+                        season = 6,
+                        country = 'Australia',
                         name='Flick', 
                         age=28, 
                         occupation='Big Wave Surfer', 
@@ -61,6 +69,8 @@ def create_db():
     # Create a contestant record for Cara
     # description might be a bit long (46 characters truncated)
     cara = models.Contestant(id=5, 
+                        season = 6,
+                        country = 'Australia',
                         name='Cara', 
                         age=47, 
                         occupation='Real Estate Agent', 

@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for  # Flask is alread
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestant
+from app.forms import AddVoteForm, AddContestant, EditContestant
 
 TITLE = "Cosy Couch Survivor"
 
@@ -34,6 +34,13 @@ def get_contestants_in_game():
     #contestants = [(x.id, x.name) for x in Contestant.query.all() if x.is_eliminated==False]
     #return contestants
 
+def get_current_contestants():
+    ''' A helper function that returns a list of
+        tuples with contestant ids and names from the contestants table.
+        This is used to populate the choices in the Contestants for each voting choice dropdown.
+    '''
+    contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
+    return contestants
 # HOMEPAGE
 @app.route('/')
 @app.route('/index')
@@ -70,6 +77,26 @@ def add_contestant():
         return redirect(url_for('contestants'))
     # When there is a GET request, the view with the form is returned
     return render_template('add_contestant.html', form = form)
+
+@app.route('/edit_contestant', methods=['GET', 'POST'])
+def edit_contestant():
+    form = EditContestant()
+    form.name.choices = get_current_contestants()
+    # Check if the form has been submitted (is a POST request) and form inputs are valid
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a Contestant object for saving to the database, mapping form inputs to object
+        contestant = Contestant()
+        form.populate_obj(obj=contestant)
+        # Adds the contestant object to session for creation and saves changes to db
+        db.session.query.filter_by(contestant)
+        db.session.commit()
+        
+        # Returns the view with a message that the contestant has been added
+        # return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
+        return redirect(url_for('contestants'))
+    # When there is a GET request, the view with the form is returned
+    return render_template('edit_contestant.html', form = form)
 
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file
 @app.route('/vote', methods = ['GET', 'POST'])

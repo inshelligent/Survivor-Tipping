@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Enter contestant details</h2>
+<ul class="errors">
+{% for field, errors in form.errors.items() %}
+    <li>
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+    </li>
+{% endfor %}
+</ul>
+<form method="POST" class="pure-form pure-form-stacked">
+    {{ form.csrf_token }}
+
+    {{ form.name.label }}
+    {{ form.name }}
+
+    <br/>
+    {{ form.submit(class_="pure-button pure-button-primary") }}
+
+</form>
+{% endblock %}
