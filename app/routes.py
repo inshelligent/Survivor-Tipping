@@ -40,6 +40,13 @@ def get_current_contestants():
     contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
     return contestants
 
+def get_current_tribals():
+    # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
+    # This is used to populate the choices in the Vote form for the tribal choice dropdown.
+    # thanks to stackoverflow for how to format the date :)
+    tribals = [(tribal.id, tribal.tribal_date.strftime("%d/%m/%Y")) for tribal in Tribal.query.all()]
+    return tribals
+
 
 # HOMEPAGE
 @app.route('/')
@@ -132,6 +139,8 @@ def vote():
     form = AddVoteForm()
     # store the user_id in a hidden field on the form
     #form.user_id = 2          # This did not work ### HARD CODED USER ID FOR NOW
+    # gets the choices for the current Tribals
+    form.tribal_id.choices = get_current_tribals()
     # gets the choices for the contestants form field
     form.first_choice_id.choices = get_contestants_in_game()
     form.second_choice_id.choices = get_contestants_in_game()
