@@ -3,22 +3,35 @@
 {% block content %}
     <h1>{{ title }} </h1>
     <div class="text-area">
-    <form action = "signup-received" method="POST" id = 'form-sign-up'>
-        <label for = 'name'>Name: </label>
-        <input type="text" name = 'name' id= 'name' />
-        <p></p>
-        <label for = 'email'>Email: </label>
-        <input type="text" name = 'email' id= 'email' />
-        <p></p>
-        <label for = 'username'>User name: </label>
-        <input type="text" name = 'username' id= 'username' />
-        <p>Valid usernames must contain only characters 0-9, a-z, A-Z, and underscores (_). 
-            Usernames must be between 6-12 characters long.</p>
-        <label for = 'pword'>Password: </label>
-        <input type="password" name = 'pword' id= 'pword' />
-        <p>Valid passwords must contain only characters 0-9, a-z, A-Z, and underscores (_). 
-            Passwords must be between 6-12 characters long.</p>
-        <p><input class="link-button" type="submit" value = "Sign Up" /></p>
+    <ul class="errors">
+        {% for field, errors in form.errors.items() %}
+            <li>
+                {{ form[field].label }} {{ ', '.join(errors) }}
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" class="pure-form pure-form-stacked">
+        {{ form.csrf_token }}
+
+        {{ form.firstname.label }}
+        {{ form.firstname }}
+        <br/>
+        {{ form.surname.label }}
+        {{ form.surname }}
+        <br/>
+        {{ form.username.label }}
+        {{ form.username }}
+        <br/>
+        {{ form.password.label }}
+        {{ form.password }}
+        <br/>
+        {{ form.confirm.label }}
+        {{ form.confirm }}
+        <br/>
+        {{ form.email.label }}
+        {{ form.email }}
+        <br/>
+        {{ form.submit(class_="pure-button pure-button-primary") }}
     </form>
     </div>
 {% endblock %}

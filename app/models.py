@@ -31,7 +31,7 @@ class User(db.Model):
 class Tribal(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     tribal_date = db.Column(db.DateTime, primary_key=True, nullable=False)
-    voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
+    voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=True)
  
 
 class Vote(db.Model):

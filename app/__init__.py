@@ -1,9 +1,11 @@
+from datetime import date
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 # Sets up configuration setting for the database location
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///survivor.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #Turns this setting off, helps with performance
 # allow us to see the SQL commands that are being run and any errors/messages to help with debugging
 app.config['SQLALCHEMY_ECHO'] = True
 # stops cross-script forgery, used with WTForms
@@ -98,6 +100,12 @@ def create_db():
                         is_admin = False,
                         score = 0)
     db.session.add(general)
-
     # Save the created records to the database file
     db.session.commit()
+
+    # create some test data for Tribals
+    round1 = models.Tribal(id=1, tribal_date = date.today())
+    db.session.add(round1)
+    # Save the created records to the database file
+    db.session.commit()
+

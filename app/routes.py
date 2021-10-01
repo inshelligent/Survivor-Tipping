@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for  # Flask is alread
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestant, EditContestant
+from app.forms import AddVoteForm, AddContestant, EditContestant, AddUserForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -102,6 +102,8 @@ def edit_contestant():
 @app.route('/vote', methods = ['GET', 'POST'])
 def vote():
     form = AddVoteForm()
+    # store the user_id in a hidden field on the form
+    #form.user_id = 2          # This did not work ### HARD CODED USER ID FOR NOW
     # gets the choices for the contestants form field
     form.first_choice_id.choices = get_contestants_in_game()
     form.second_choice_id.choices = get_contestants_in_game()
@@ -125,9 +127,22 @@ def vote():
     return render_template('vote.html', form = form, title="Voting")
 
 # Send user to Sign-up / registration page
-@app.route('/sign_up')
+@app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
-    return render_template('sign_up.html', title="Sign Up")
+    form = AddUserForm()
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a Contestant object for saving to the database, mapping form inputs to object
+        user = User()
+        form.populate_obj(obj=user)
+        # Adds the user object to session for creation and saves changes to db
+        db.session.add(user)
+        db.session.commit()
+        
+        # Take user back to home page
+        return redirect(url_for('index'))
+
+    return render_template('sign_up.html', form = form, title="Sign Up")
 
 # Do Sign-up / registration form submit
 @app.route('/signup-received', methods = ["POST"])
