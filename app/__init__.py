@@ -67,6 +67,27 @@ def create_db():
                         description="Real Estate Agency Owner Cara, may be known as the Duchess of Double Bay, but can she bring her reign to the Outback? At the age of 20, the quirky adventure seeker realised that she had a secret power. As an empath, Cara can sense and feel emotions as if they're part of her own experience and someone else's pain and happiness, become her own.", 
                         is_eliminated=True)
     db.session.add(cara)
+    db.session.commit()
+
+    admin = models.User(id = 1,
+                        username = "admin",
+                        password = "admin",
+                        email = "admin@blah.com.au",
+                        firstname = "Admin",
+                        surname = "User",
+                        is_admin = True,
+                        score = 0)
+    db.session.add(admin)
+
+    general = models.User(id = 2,
+                        username = "joebloggs",
+                        password = "qwerty",
+                        email = "joe@blah.com.au",
+                        firstname = "Joe",
+                        surname = "Bloggs",
+                        is_admin = False,
+                        score = 0)
+    db.session.add(general)
 
     # Save the created records to the database file
     db.session.commit()

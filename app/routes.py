@@ -25,6 +25,7 @@ def get_contestants_in_game():
     # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
     # This is used to populate the choices in the Contestants for each voting choice dropdown.
     contestant_choices = []
+    contestant_choices.insert(0, (0, ""))
     for contestant in Contestant.query.all():
         if contestant.is_eliminated==False:
             choice = (contestant.id, contestant.name)
@@ -75,9 +76,9 @@ def add_contestant():
 def vote():
     form = AddVoteForm()
     # gets the choices for the contestants form field
-    form.first_vote.choices = get_contestants_in_game()
-    form.second_vote.choices = get_contestants_in_game()
-    form.third_vote.choices = get_contestants_in_game()
+    form.first_choice_id.choices = get_contestants_in_game()
+    form.second_choice_id.choices = get_contestants_in_game()
+    form.third_choice_id.choices = get_contestants_in_game()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
@@ -90,8 +91,8 @@ def vote():
         db.session.commit()
         
         # Returns the view with a message that the student has been added
-        return redirect(url_for('vote_successful'))
-        #return render_template('vote_successful.html', vote = vote, title="Vote Placed")
+        #return redirect(url_for('vote_successful'))
+        return render_template('vote_successful.html', vote = vote, title="Vote Placed")
     
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('vote.html', form = form, title="Voting")

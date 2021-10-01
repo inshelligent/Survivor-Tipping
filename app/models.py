@@ -20,20 +20,17 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False)
     firstname = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
-    user_level = db.Column(db.String(20), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer, default=0)
 
     def __repr__(self):
-        return f'{self.id} {self.username} {self.firstname}'
-
+            return f'{self.firstname}'
 
 class Tribal(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     tribal_date = db.Column(db.DateTime, primary_key=True, nullable=False)
     voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=False)
-    
-    def __repr__(self):
-        return f'{self.tribal_id} {self.voted_out_id}'
+ 
 
 class Vote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True, nullable=False)
@@ -42,5 +39,3 @@ class Vote(db.Model):
     second_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     third_choice_id = db.Column(db.Integer, db.ForeignKey('contestant.id'))
     
-    def __repr__(self):
-        return f'{self.user_id} {self.tribal_id} {self.first_choice_id}'
