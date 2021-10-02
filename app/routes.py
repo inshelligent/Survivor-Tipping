@@ -150,9 +150,12 @@ def eliminate_contestant():
         contestant.is_eliminated = True
         # get the existing tribal info
         tribal = Tribal.query.get_or_404(tribalTemp.tribal_id)
+        # update the voted_out_id field with the selected contestant's id
         tribal.voted_out_id = tribalTemp.voted_out_id
         # finally, save all the changes to the DB
         db.session.commit() 
+        # TO-DO 
+        # this is where the user/players scores will be calculated if time (and energy/inclination!) permits.
         return redirect(url_for('admin_contestants'))
 
     return render_template('eliminate_contestant.html', form = form)
