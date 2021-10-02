@@ -40,6 +40,10 @@ class AddContestantForm(FlaskForm):
 class EditContestantForm(AddContestantForm):   # nice bit of inheritance happening here!
     submit = SubmitField('Save Contestant')
 
+class EliminateContestantForm(FlaskForm):
+    tribal_id = SelectField('Tribal:', coerce=int, validators = [InputRequired()])
+    voted_out_id = SelectField('Contestant name:', coerce=int, validators = [InputRequired()])
+    submit = SubmitField('Eliminate Contestant')
 
 class AddUserForm(FlaskForm):
     firstname = StringField('First Name', validators=[InputRequired(), Length(min=1, max=50)])

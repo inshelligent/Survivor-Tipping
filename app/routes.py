@@ -6,7 +6,7 @@ from flask import render_template, request, redirect, url_for   # Flask is alrea
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm
+from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm, EliminateContestantForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -131,6 +131,31 @@ def delete_contestant(id):
     db.session.commit()
     # Returns the view that displays the list of fruits
     return redirect(url_for('admin_contestants'))
+
+@app.route('/eliminate_contestant', methods=['GET', 'POST'])
+def eliminate_contestant():
+    form = EliminateContestantForm()
+    # gets the choices for the current Tribals
+    form.tribal_id.choices = get_current_tribals()
+    # gets the choices for the contestants form field
+    form.voted_out_id.choices = get_contestants_in_game()
+    # Check if the form has been submitted (is a POST request) and form inputs are valid
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        tribalTemp = Tribal()
+        form.populate_obj(obj=tribalTemp)
+        # get the existing contestant info
+        contestant = Contestant.query.get_or_404(tribalTemp.voted_out_id)
+        # update the is_eliminated field
+        contestant.is_eliminated = True
+        # get the existing tribal info
+        tribal = Tribal.query.get_or_404(tribalTemp.tribal_id)
+        tribal.voted_out_id = tribalTemp.voted_out_id
+        # finally, save all the changes to the DB
+        db.session.commit() 
+        return redirect(url_for('admin_contestants'))
+
+    return render_template('eliminate_contestant.html', form = form)
 
 # VOTING SECTION #
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes file

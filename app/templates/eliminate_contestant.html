@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Admin: Elimination</h2>
+<h3>Select Tribal and contestant to eliminate</h3>
+<ul class="errors">
+{% for field, errors in form.errors.items() %}
+    <li>
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+    </li>
+{% endfor %}
+</ul>
+<form method="POST" class="pure-form pure-form-stacked">
+        {{ form.csrf_token }}
+
+        {{ form.tribal_id.label }}
+        {{ form.tribal_id }}
+    <br/>
+        {{ form.voted_out_id.label }}
+        {{ form.voted_out_id }}
+    <br/>
+        <br/>
+        {{ form.submit(class_="pure-button pure-button-primary") }}
+    </form>
+</div>
+{% endblock %}
