@@ -1,21 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Your vote has been recorded</h1>
+    <h1>Thank you {{ vote.user.firstname }}, your vote has been recorded</h1>
     <table class="table">
         <tr class="table-header">
-            <th class="table-cell">Voter Name </th>
             <th class="table-cell">Tribal No</th>
             <th class="table-cell">Registered first vote for</th>
             <th class="table-cell">Registered second vote for</th>
             <th class="table-cell">Registered third vote for</th>
         </tr>
             <tr class="table-row">
-                <td class="table-cell">{{ vote.user_id }}</td>
-                <td class="table-cell">{{ vote.tribal_id }}</td>
-                <td class="table-cell">{{ vote.first_choice_id}}</td>
-                <td class="table-cell">{{ vote.second_choice_id}}</td>
-                <td class="table-cell">{{ vote.third_choice_id}}</td>
+                <td class="table-cell">{{ vote.tribal_id }} {{ vote.tribal.tribal_date.strftime("%a %d %b %Y") }}</td>
+                <td class="table-cell">{{ vote.first_choice.name}}</td>
+                <td class="table-cell">{{ vote.second_choice.name}}</td>
+                <td class="table-cell">{{ vote.third_choice.name}}</td>
             </tr>
     </table>
 {% endblock %}

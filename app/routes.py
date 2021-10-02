@@ -44,7 +44,7 @@ def get_current_tribals():
     # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
     # This is used to populate the choices in the Vote form for the tribal choice dropdown.
     # thanks to stackoverflow for how to format the date :)
-    tribals = [(tribal.id, tribal.tribal_date.strftime("%d/%m/%Y")) for tribal in Tribal.query.all()]
+    tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.all()]
     return tribals
 
 
