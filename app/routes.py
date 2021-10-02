@@ -152,8 +152,28 @@ def eliminate_contestant():
         tribal = Tribal.query.get_or_404(tribalTemp.tribal_id)
         # update the voted_out_id field with the selected contestant's id
         tribal.voted_out_id = tribalTemp.voted_out_id
-        # finally, save all the changes to the DB
-        db.session.commit() 
+        # save all the changes to the DB
+        db.session.commit()
+        ''' update the score of all users based on who was voted out
+            10 points if voted out is 1st choice
+            3 points if voted out is 2nd choice
+            1 point if voted out is 3rd choice
+        '''
+        # store the id of the eliminated contestant
+        voted_out = contestant.id
+        # get the votes for tonight's tribal and update the user scores
+        for vote in Vote.query.filter_by(tribal_id=tribalTemp.tribal_id):
+            user = User.query.filter_by(id=vote.user_id)
+            if vote.first_choice_id == contestant.id:
+                user.score += 10
+                db.session.commit()
+            elif vote.second_choice_id == contestant.id:
+                user.score += 3
+                db.session.commit()
+            elif vote.third_choice_id == contestant.id:
+                user.score += 1
+                db.session.commit()
+
         # TO-DO 
         # this is where the user/players scores will be calculated if time (and energy/inclination!) permits.
         return redirect(url_for('admin_contestants'))
