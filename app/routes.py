@@ -103,14 +103,14 @@ def edit_contestant(id):
     contestant = Contestant.query.get_or_404(id)
 
     # Creates a form for editing the contestant record, putting in the contestant record's details
-    form = EditContestantForm(id)
+    form = EditContestantForm(obj=contestant)
     #form.name.choices = get_current_contestants()
 
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
         # Create a Contestant object for saving to the database, mapping form inputs to object
-        form.populate_obj(obj=contestant)
+        form.populate_obj(contestant)
         # Adds the contestant object to session for creation and saves changes to db
         db.session.commit()
         
