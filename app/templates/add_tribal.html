@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Admin: Edit contestant: {{ contestant_name }}</h1>
+<h1>Admin: Create a Tribal event</h1>
 <ul class="errors">
 {% for field, errors in form.errors.items() %}
     <li>
@@ -11,22 +11,8 @@
 <form method="POST" class="pure-form pure-form-stacked">
     {{ form.csrf_token }}
 
-    {{ form.name.label }}
-    {{ form.name }}
-
-    {{ form.age.label }}
-    {{ form.age }}
-
-    {{ form.occupation.label }}
-    {{ form.occupation }}
-
-    {{ form.description.label }}
-    {{ form.description }}
-
-    <label>
-        {{ form.is_eliminated.label.text | safe }}
-        {{ form.is_eliminated }}
-    </label>
+    {{ form.tribal_date.label }}
+    {{ form.tribal_date }}
 
     <br/>
     {{ form.submit(class_="pure-button pure-button-primary") }}

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, BooleanField, SelectField, HiddenField, PasswordField
 from wtforms.validators import InputRequired, Length, EqualTo
@@ -55,3 +55,9 @@ class AddUserForm(FlaskForm):
     submit = SubmitField('Register')
    
     # need to check if username already exists
+
+class AddTribalForm(FlaskForm):
+    # it DOES NOT like DateTimeField one bit!
+    #tribal_date = DateTimeField('Tribal Date:', format="%d-%m-%Y", default=date.today(), validators = [InputRequired()])
+    tribal_date = StringField('Tribal Date:', default=date.today().strftime("%d-%m-%Y"), validators = [InputRequired()])
+    submit = SubmitField('Create Tribal')

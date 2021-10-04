@@ -1,12 +1,12 @@
 import csv
-from datetime import date
+from datetime import date, datetime
 
 from flask import render_template, request, redirect, url_for   # Flask is already imported in _init_
 
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm, EliminateContestantForm
+from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm, EliminateContestantForm, AddTribalForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -180,8 +180,31 @@ def eliminate_contestant():
 
     return render_template('eliminate_contestant.html', form = form)
 
+# TRIBAL SECTION #
+# Admin Tribal Page - allows an admin to create a tribal record
+@app.route('/add_tribal', methods = ['GET', 'POST'])
+def add_tribal():
+    form = AddTribalForm()
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Get data from the form and put in a Vote object
+        tribal = Tribal()
+        #need to convert/parse string to datetime
+        tribal.tribal_date = datetime.strptime(form.tribal_date.value, "%d-%m-%Y")
+
+        form.populate_obj(obj=tribal)
+        # Adds the tribal object to session for creation and saves changes to db
+        db.session.add(tribal)
+        db.session.commit()
+        
+        # Returns the view with a message that the student has been added
+        return redirect(url_for('admin'))
+    # Returns the view with a message of how to bet, and list of remaining contestants
+    return render_template('add_tribal.html', form = form, title="Create a Tribal")
+
+
 # VOTING SECTION #
-# Send user to the Tipping page - allows user to place a tip, then saves to the votes file
+# Send user to the Tipping page - allows user to place a tip, then saves to the votes table
 @app.route('/vote', methods = ['GET', 'POST'])
 def vote():
     form = AddVoteForm()
