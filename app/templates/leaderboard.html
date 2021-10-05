@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Leaderboard</h1>
+    <table class="table">
+        <tr class="table-header">
+            <th class="table-cell">First Name</th>
+            <th class="table-cell">Last Name</th>
+            <th class="table-cell">Score</th>
+        </tr>
+        <!-- Populate table from all non-eliminated contestants in Contestants table. 
+            Use visual cue to highlight eliminated contestants -->
+        {% for p in players %}
+            <tr class="table-row">
+                <td class="table-cell">{{ p.firstname }}</td>
+                <td class="table-cell">{{ p.surname }}</td>
+                <td class="table-cell">{{ p.score}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

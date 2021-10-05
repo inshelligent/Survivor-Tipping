@@ -1,6 +1,6 @@
 import csv
 from datetime import date, datetime
-
+from sqlalchemy import desc
 from flask import render_template, request, redirect, url_for   # Flask is already imported in _init_
 
 from app import app, db
@@ -280,4 +280,13 @@ def check_login():
         # Returns the view with a message that the user is now logged in
         return render_template('index.html', title=TITLE, user=user, comments=comments)
 
+# Leaderboard page which lists all the players/app users, ordered by score desc
+@app.route('/leaderboard')
+def leaderboard():
+    #fetch users from DB
+    # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
+    user = user = User.query.order_by(User.score.desc())
+    # TO DO - Add Order by score Desc
+    # Returns the view with list of users
+    return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 
