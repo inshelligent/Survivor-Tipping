@@ -1,7 +1,8 @@
 import csv
 from datetime import date, datetime
-from sqlalchemy import desc
-from flask import render_template, request, redirect, url_for   # Flask is already imported in _init_
+from sqlalchemy import desc, null
+from flask import render_template, request, redirect, url_for
+from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
 
 from app import app, db
 
@@ -44,7 +45,7 @@ def get_current_tribals():
     # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
     # This is used to populate the choices in the Vote form for the tribal choice dropdown.
     # thanks to stackoverflow for how to format the date :)
-    tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.all()]
+    tribals = [(tribal.id, tribal.tribal_date) for tribal in Tribal.query.filter_by(voted_out_id=0)]
     return tribals
 
 
@@ -138,7 +139,7 @@ def eliminate_contestant():
     # gets the choices for the current Tribals
     form.tribal_id.choices = get_current_tribals()
     # gets the choices for the contestants form field
-    form.voted_out_id.choices = get_contestants_in_game()
+    form.voted_out_id.choices = get_current_contestants()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
@@ -286,7 +287,6 @@ def leaderboard():
     #fetch users from DB
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
     user = user = User.query.order_by(User.score.desc())
-    # TO DO - Add Order by score Desc
-    # Returns the view with list of users
+    # Returns the view with list of users ordered from highest scoring to lowest
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 

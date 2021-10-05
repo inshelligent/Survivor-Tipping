@@ -35,7 +35,7 @@ class Contestant(db.Model):
 class Tribal(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     tribal_date = db.Column(db.DateTime, nullable=False)
-    voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), nullable=True)
+    voted_out_id = db.Column(db.Integer, db.ForeignKey('contestant.id'), default=0)
  
 # this holds all the details for a vote, and needs user, tribal, and contestant
 class Vote(db.Model):
