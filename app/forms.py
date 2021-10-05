@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, BooleanField, SelectField, HiddenField, PasswordField
+from wtforms import StringField, IntegerField, SubmitField, BooleanField, SelectField, HiddenField, PasswordField, DateField
 from wtforms.validators import InputRequired, Length, EqualTo
 
 
@@ -59,5 +59,5 @@ class AddUserForm(FlaskForm):
 class AddTribalForm(FlaskForm):
     # it DOES NOT like DateTimeField one bit!
     #tribal_date = DateTimeField('Tribal Date:', format="%d-%m-%Y", default=date.today(), validators = [InputRequired()])
-    tribal_date = StringField('Tribal Date:', default=date.today().strftime("%d-%m-%Y"), validators = [InputRequired()])
+    tribal_date = DateField('Tribal Date:', default=date.today(), validators = [InputRequired()])
     submit = SubmitField('Create Tribal')

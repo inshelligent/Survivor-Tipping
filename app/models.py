@@ -12,7 +12,7 @@ class User(db.Model):
     surname = db.Column(db.String(50), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer, default=0)
-    #votes = db.relationship('Vote', backref=db.backref('user'))
+    votes = db.relationship('Vote', backref='user')
 
     def __repr__(self):
             return f'{self.firstname}'
@@ -48,5 +48,5 @@ class Vote(db.Model):
     first_choice = db.relationship('Contestant', foreign_keys=first_choice_id)
     second_choice = db.relationship('Contestant', foreign_keys=second_choice_id)
     third_choice = db.relationship('Contestant', foreign_keys=third_choice_id)
-    user = db.relationship('User', foreign_keys=user_id)
+    #user = db.relationship('User', foreign_keys=user_id)
     tribal = db.relationship('Tribal', foreign_keys=tribal_id)

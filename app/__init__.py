@@ -24,8 +24,7 @@ def create_db():
 
     # Create a contestant record for Hayley
     # description might be a bit long (92 characters truncated)
-    hayley = models.Contestant(id=1, 
-                                season = 6,
+    hayley = models.Contestant(season = 6,
                                 country = 'Australia',
                                 name='Hayley', 
                                 age=31, 
@@ -36,8 +35,7 @@ def create_db():
 
     # Create a contestant record for George
     # description might be a bit long (13 characters truncated)
-    george = models.Contestant(id=2, 
-                        season = 6,
+    george = models.Contestant(season = 6,
                         country = 'Australia',
                         name='George', 
                         age=31, 
@@ -47,8 +45,7 @@ def create_db():
     db.session.add(george)
 
     # Create a contestant record for Wai
-    wai = models.Contestant(id=3, 
-                        season = 6,
+    wai = models.Contestant(season = 6,
                         country = 'Australia',
                         name='Wai', 
                         age=38, 
@@ -58,8 +55,7 @@ def create_db():
     db.session.add(wai)
 
     # Create a contestant record for Flick
-    flick = models.Contestant(id=4, 
-                        season = 6,
+    flick = models.Contestant(season = 6,
                         country = 'Australia',
                         name='Flick', 
                         age=28, 
@@ -70,8 +66,7 @@ def create_db():
 
     # Create a contestant record for Cara
     # description might be a bit long (46 characters truncated)
-    cara = models.Contestant(id=5, 
-                        season = 6,
+    cara = models.Contestant(season = 6,
                         country = 'Australia',
                         name='Cara', 
                         age=47, 
@@ -81,8 +76,7 @@ def create_db():
     db.session.add(cara)
     db.session.commit()
 
-    admin = models.User(id = 1,
-                        username = "admin",
+    admin = models.User(username = "admin",
                         password = "admin",
                         email = "admin@blah.com.au",
                         firstname = "Admin",
@@ -91,8 +85,7 @@ def create_db():
                         score = 0)
     db.session.add(admin)
 
-    general = models.User(id = 2,
-                        username = "joebloggs",
+    general = models.User(username = "joebloggs",
                         password = "qwerty",
                         email = "joe@blah.com.au",
                         firstname = "Joe",
@@ -104,7 +97,7 @@ def create_db():
     db.session.commit()
 
     # create some test data for Tribals
-    round1 = models.Tribal(id=1, tribal_date = date.today())
+    round1 = models.Tribal(tribal_date = date.today())
     db.session.add(round1)
     # Save the created records to the database file
     db.session.commit()
