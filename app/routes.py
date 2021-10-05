@@ -43,9 +43,9 @@ def get_current_contestants():
 
 def get_current_tribals():
     # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
-    # This is used to populate the choices in the Vote form for the tribal choice dropdown.
+    # This is used to populate the choices for the tribal choice dropdown, in the Vote form and on the Eliminate Contestant admin page
     # thanks to stackoverflow for how to format the date :)
-    tribals = [(tribal.id, tribal.tribal_date) for tribal in Tribal.query.filter_by(voted_out_id=0)]
+    tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.filter_by(voted_out_id=0)]
     return tribals
 
 
@@ -189,7 +189,6 @@ def add_tribal():
         # The form has been submitted and the inputs are valid
         # Get data from the form and put in a Vote object
         tribal = Tribal()
-
         form.populate_obj(obj=tribal)
         # Adds the tribal object to session for creation and saves changes to db
         db.session.add(tribal)
@@ -251,7 +250,8 @@ def sign_up():
 
     return render_template('sign_up.html', form = form, title="Sign Up")
 
-# ToDo - Sign-up / registration form submit
+###### TO-DO #######
+# Sign-up / registration form submit   
 @app.route('/signup-received', methods = ["POST"])
 def submit_sign_up():
     new_user = {}
@@ -269,7 +269,8 @@ def submit_sign_up():
 def login():
     return render_template('login.html', title="Log In")
 
-# ToDo - login page form submit
+###### TO-DO #######
+# login page form submit
 @app.route('/login-received', methods = ["POST"])
 def check_login():
     if request.method == "POST":

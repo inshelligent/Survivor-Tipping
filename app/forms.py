@@ -5,7 +5,6 @@ from wtforms.validators import InputRequired, Length, EqualTo
 
 
 class AddVoteForm(FlaskForm):
-    #tribal_date = DateTimeField('Tribal Date:', format="%d-%m-%Y", default=date.today(), validators = [InputRequired()])
     tribal_id = SelectField('Tribal No:', coerce=int, validators = [InputRequired()])
     first_choice_id = SelectField('First vote: Contestant name:', coerce=int, validators = [InputRequired()])
     second_choice_id = SelectField('Second vote: Contestant name:', coerce=int)
@@ -57,7 +56,5 @@ class AddUserForm(FlaskForm):
     # need to check if username already exists
 
 class AddTribalForm(FlaskForm):
-    # it DOES NOT like DateTimeField one bit!
-    #tribal_date = DateTimeField('Tribal Date:', format="%d-%m-%Y", default=date.today(), validators = [InputRequired()])
     tribal_date = DateField('Tribal Date:', default=date.today(), validators = [InputRequired()])
     submit = SubmitField('Create Tribal')
