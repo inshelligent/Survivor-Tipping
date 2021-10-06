@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Admin: Edit contestant: {{ contestant_name }}</h1>
+NOTE: Setting a contestant to eliminated on this page does not create an elimination record/event.<br/>
+To eliminate a contestant, use the <a href="/eliminate_contestant">Eliminate Contestant</a> page.
 <ul class="errors">
 {% for field, errors in form.errors.items() %}
     <li>
