@@ -3,16 +3,23 @@
 {% block content %}
     <h1>{{ title }} </h1>
     <div class="text-area">
-    <form action = "login-received" method="POST" id = 'form-login'>
-        <label for = 'username'>User name: </label>
-        <input type="text" name = 'username' id= 'username' />
-        <p>Valid usernames must contain only characters 0-9, a-z, A-Z, and underscores (_). 
-            Usernames must be between 6-12 characters long.</p>
-        <label for = 'pword'>Password: </label>
-        <input type="password" name = 'pword' id= 'pword' />
-        <p>Valid passwords must contain only characters 0-9, a-z, A-Z, and underscores (_). 
-            Passwords must be between 6-12 characters long.</p>
-        <p><input class="link-button" type="submit" value = "Login" /></p>
+    <ul class="errors">
+        {% for field, errors in form.errors.items() %}
+            <li>
+                {{ form[field].label }} {{ ', '.join(errors) }}
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" class="pure-form pure-form-stacked">
+        {{ form.csrf_token }}
+
+        {{ form.username.label }}
+        {{ form.username }}
+        <br/>
+        {{ form.password.label }}
+        {{ form.password }}
+        <br/>
+        {{ form.submit(class_="pure-button pure-button-primary") }}
     </form>
     </div>
-{% endblock %}
+{% endblock %}    

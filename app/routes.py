@@ -7,7 +7,7 @@ from sqlalchemy.sql.expression import null   # Flask is already imported in _ini
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm, AddContestantForm, EditContestantForm, AddUserForm, EliminateContestantForm, AddTribalForm
+from app.forms import AddUserForm, LoginForm, AddVoteForm, AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm
 
 TITLE = "Cosy Couch Survivor"
 
@@ -244,15 +244,33 @@ def sign_up():
         # Adds the user object to session for creation and saves changes to db
         db.session.add(user)
         db.session.commit()
-        
+        ####### DISPLAY SOME KIND OF SUCCESS MESSAGE #### "Sign Up Successful"
         # Take user back to home page
         return redirect(url_for('index'))
 
     return render_template('sign_up.html', form = form, title="Sign Up")
 
-###### TO-DO #######
+# send user to the login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a user object for checking stuff, mapping form inputs to object
+        tempUser = User()
+        form.populate_obj(obj=tempUser)
+        # find out if they are a registered user
+        #user = User.query.get_or_404(tempUser.username)
+        # if they are, display welcome message and save their ID and is_admin status
+        ######## DO STUFF HERE ########
+        # Take user back to home page
+        return redirect(url_for('index'))
+
+    return render_template('login.html', form = form, title="Log In")
+
+###### TO-DO ####### Do we need this??
 # Sign-up / registration form submit   
-@app.route('/signup-received', methods = ["POST"])
+"""@app.route('/signup-received', methods = ["POST"])
 def submit_sign_up():
     new_user = {}
     if request.method == "POST":
@@ -262,16 +280,11 @@ def submit_sign_up():
         new_user['email'] = request.form.get('email')
         new_user['score'] = 0
         # Returns the view with a message that the user has been added
-        return render_template('sign_up_received.html', new_user = new_user, title="Sign Up Successful")
+        return render_template('sign_up_received.html', new_user = new_user, title="Sign Up Successful") """
 
-# send user to the login page
-@app.route('/login')
-def login():
-    return render_template('login.html', title="Log In")
-
-###### TO-DO #######
+###### TO-DO ####### Do we need this??
 # login page form submit
-@app.route('/login-received', methods = ["POST"])
+"""@app.route('/login-received', methods = ["POST"])
 def check_login():
     if request.method == "POST":
         user_name = request.form.get('username')
@@ -280,7 +293,7 @@ def check_login():
         comments = load_from_file('chat.csv')
         user = {'username': user_name}
         # Returns the view with a message that the user is now logged in
-        return render_template('index.html', title=TITLE, user=user, comments=comments)
+        return render_template('index.html', title=TITLE, user=user, comments=comments) """
 
 # Leaderboard page which lists all the players/app users, ordered by score desc
 @app.route('/leaderboard')
