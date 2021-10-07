@@ -77,7 +77,7 @@ def create_db():
     db.session.commit()
 
     admin = models.User(username = "admin",
-                        password = "admin",
+                        password = "administrator",
                         email = "admin@blah.com.au",
                         firstname = "Admin",
                         surname = "User",
@@ -86,7 +86,7 @@ def create_db():
     db.session.add(admin)
 
     general = models.User(username = "joebloggs",
-                        password = "qwerty",
+                        password = "legend_joe",
                         email = "joe@blah.com.au",
                         firstname = "Joe",
                         surname = "Bloggs",
