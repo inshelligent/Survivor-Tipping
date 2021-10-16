@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Length, EqualTo
 
 
 class AddVoteForm(FlaskForm):
-    tribal_id = SelectField('Tribal No:', coerce=int, validators = [InputRequired()])
+    tribal_id = SelectField('Tribal Date:', coerce=int, validators = [InputRequired()])
     first_choice_id = SelectField('First vote: Contestant name:', coerce=int, validators = [InputRequired()])
     second_choice_id = SelectField('Second vote: Contestant name:', coerce=int)
     third_choice_id = SelectField('Third vote: Contestant name:', coerce=int)
