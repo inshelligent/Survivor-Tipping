@@ -1,7 +1,7 @@
 import csv
 from datetime import date, datetime
 from sqlalchemy import desc, null
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
 
 from app import app, db
@@ -91,7 +91,7 @@ def add_contestant():
         # Adds the contestant object to session for creation and saves changes to db
         db.session.add(contestant)
         db.session.commit()
-        
+        flash('Contestant was added successfully!')
         # Returns the view with a message that the contestant has been added
         # return render_template('add_contestant.html', contestant = contestant, title="Contestant Added")
         return redirect(url_for('admin_contestants'))
@@ -114,7 +114,8 @@ def edit_contestant(id):
         form.populate_obj(contestant)
         # Adds the contestant object to session for creation and saves changes to db
         db.session.commit()
-        
+        flash('Contestant details were saved successfully!')
+
         # Returns the view with a message that the contestant has been added
         return redirect(url_for('admin_contestants'))
 
@@ -130,6 +131,8 @@ def delete_contestant(id):
     db.session.delete(contestant)
     # The change (the deletion) are saved in the database file
     db.session.commit()
+    flash('Contestant was deleted successfully!')
+
     # Returns the view that displays the list of fruits
     return redirect(url_for('admin_contestants'))
 

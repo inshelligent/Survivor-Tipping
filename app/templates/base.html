@@ -25,7 +25,18 @@
                 <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
             </div>
             <div class='content-inside'>
-                {% block content %}{% endblock %}
+                <!-- Show any flashed messages on the page -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
     </div>
