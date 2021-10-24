@@ -7,8 +7,8 @@
       {% else %}
         <title>Cosy Couch Survivor</title>
       {% endif %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
     </head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"
     <body>
         <div class='content'>
             <div class="header">
@@ -40,12 +40,12 @@
                 {% endblock %}
             </div>
         </div>
-        <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+        
     </div>
     <div class="clear"></div>
     <div class="footer">
         <p>Privacy Policy | Contact Us | Copyright 2021 | Created by EDPF5023 Legends aka Kylie, Troy & Michelle</p>
     </div>
-    
+    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
     </body>
 </html>
