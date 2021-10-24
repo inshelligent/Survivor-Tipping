@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
     <head>
+      <meta charset="utf-8">
+      <meta name = "viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
       {% if title %}
@@ -8,12 +10,22 @@
       {% else %}
         <title>Cosy Couch Survivor</title>
       {% endif %}
-      
     </head>
     <body>
         <div class='content'>
             <div class="header">
                 Cosy Couch Survivor
+            </div>
+            <div class="container">
+                <div class="alert alert-success">
+                    <strong>Keep Surviving! Success!</strong>
+                </div>
+                <div class="alert alert-warning">
+                    <strong>Uh oh! Did you forget something?</strong>
+                </div>
+                <div> class="alert alert-danger">
+                    <strong> Whoa! To late, it's gone!</strong>
+                </div>
             </div>
             <div class="topnav">
                 <a href="/index">Home</a>
