@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
     <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
       {% if title %}
         <title>{{ title }} - Cosy Couch Survivor</title>
       {% else %}
         <title>Cosy Couch Survivor</title>
       {% endif %}
-      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+      
     </head>
     <body>
         <div class='content'>
