@@ -10,12 +10,11 @@
 </ul>
 <form method="POST" class="pure-form pure-form-stacked">
     {{ form.csrf_token }}
-
-    {{ form.tribal_date.label }}
-    {{ form.tribal_date }}
+    {{ form.tribal_date.label(class='form-label') }}
+    {{ form.tribal_date (class='form-control')}}
 
     <br/>
-    {{ form.submit(class_="pure-button pure-button-primary") }}
+    {{ form.submit(class_="btn btn-warning my-2") }}
 
 </form>
 {% endblock %}
