@@ -16,17 +16,17 @@
     <form method="POST" class="pure-form pure-form-stacked">
         {{ form.csrf_token }}
 
-        {{ form.tribal_id.label }}
-        {{ form.tribal_id }}
+        {{ form.tribal_id.label (class='form-label') }}
+        {{ form.tribal_id (class='form-control')}}
     <br/>
-        {{ form.first_choice_id.label }}
-        {{ form.first_choice_id }}
+        {{ form.first_choice_id.label (class='form-label') }}
+        {{ form.first_choice_id (class='form-control')}}
     <br/>
-        {{ form.second_choice_id.label }}
-        {{ form.second_choice_id }}
+        {{ form.second_choice_id.label (class='form-label') }}
+        {{ form.second_choice_id (class='form-control')}}
     <br/>
-        {{ form.third_choice_id.label }}
-        {{ form.third_choice_id }}
+        {{ form.third_choice_id.label (class='form-label') }}
+        {{ form.third_choice_id (class='form-control')}}
 
         <br/>
         {{ form.submit(class_="pure-button pure-button-primary") }}
