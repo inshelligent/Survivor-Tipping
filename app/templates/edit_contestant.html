@@ -13,17 +13,17 @@ To eliminate a contestant, use the <a href="/eliminate_contestant">Eliminate Con
 <form method="POST" class="pure-form pure-form-stacked">
     {{ form.csrf_token }}
 
-    {{ form.name.label }}
-    {{ form.name }}
+    {{ form.name.label (class='form-label')}}
+    {{ form.name (class='form-control')}}
 
-    {{ form.age.label }}
-    {{ form.age }}
+    {{ form.age.label (class='form-label')}}
+    {{ form.age (class='form-control')}}
 
-    {{ form.occupation.label }}
-    {{ form.occupation }}
+    {{ form.occupation.label (class='form-label')}}
+    {{ form.occupation (class='form-control')}}
 
-    {{ form.description.label }}
-    {{ form.description }}
+    {{ form.description.label (class='form-label')}}
+    {{ form.description (class='form-control')}}
 
     <label>
         {{ form.is_eliminated.label.text | safe }}
@@ -31,7 +31,7 @@ To eliminate a contestant, use the <a href="/eliminate_contestant">Eliminate Con
     </label>
 
     <br/>
-    {{ form.submit(class_="pure-button pure-button-primary") }}
+    {{ form.submit(class_="btn btn-warning my-2") }}
 
 </form>
 {% endblock %}
