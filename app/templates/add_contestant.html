@@ -11,20 +11,20 @@
 <form method="POST" class="pure-form pure-form-stacked">
     {{ form.csrf_token }}
 
-    {{ form.name.label }}
-    {{ form.name }}
+    {{ form.name.label (class='form-label') }}
+    {{ form.name (class='form-control')}}
     <br/>
-    {{ form.age.label }}
-    {{ form.age }}
+    {{ form.age.label (class='form-label')}}
+    {{ form.age (class='form-control')}}
     <br/>
-    {{ form.occupation.label }}
-    {{ form.occupation }}
+    {{ form.occupation.label (class='form-label')}}
+    {{ form.occupation (class='form-control')}}
     <br/>
-    {{ form.description.label }}
-    {{ form.description }}
+    {{ form.description.label (class='form-label')}}
+    {{ form.description (class='form-control')}}
 
     <br/>
-    {{ form.submit(class_="pure-button pure-button-primary") }}
+    {{ form.submit(class_="btn btn-warning") }}
 
 </form>
 {% endblock %}
