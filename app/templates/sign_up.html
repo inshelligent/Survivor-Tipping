@@ -13,25 +13,25 @@
     <form method="POST" class="pure-form pure-form-stacked">
         {{ form.csrf_token }}
 
-        {{ form.firstname.label }}
-        {{ form.firstname }}
+        {{ form.firstname.label (class='form-label')}}
+        {{ form.firstname (class=form-control)}}
         <br/>
-        {{ form.surname.label }}
-        {{ form.surname }}
+        {{ form.surname.label (class='form-label') }}
+        {{ form.surname (class=form-control)}}
         <br/>
-        {{ form.username.label }}
-        {{ form.username }}
+        {{ form.username.label (class='form-label')}}
+        {{ form.username (class=form-control)}}
         <br/>
-        {{ form.password.label }}
-        {{ form.password }}
+        {{ form.password.label (class='form-label')}}
+        {{ form.password (class=form-control)}}
         <br/>
-        {{ form.confirm.label }}
-        {{ form.confirm }}
+        {{ form.confirm.label (class='form-label')}}
+        {{ form.confirm (class=form-control)}}
         <br/>
-        {{ form.email.label }}
-        {{ form.email }}
+        {{ form.email.label (class='form-label')}}
+        {{ form.email (class=form-control)}}
         <br/>
-        {{ form.submit(class_="pure-button pure-button-primary") }}
+        {{ form.submit(class_="btn btn-warning my-2") }}
     </form>
     </div>
 {% endblock %}
