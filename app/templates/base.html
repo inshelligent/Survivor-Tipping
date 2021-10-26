@@ -63,7 +63,7 @@
             <div class="logo">
                 <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
             </div> -->
-            
+
             <div class='content-inside'>
                 <!-- Show any flashed messages on the page -->
                 {% with messages = get_flashed_messages() %}
@@ -75,6 +75,15 @@
                         </ul>
                     {% endif %}
                 {% endwith %}
+                {% if form %}
+                <ul class="errors">
+                    {% for field, errors in form.errors.items() %}
+                        <li>
+                            {{ form[field].label }}: {{ ', '.join(errors) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 {% block content %}
                 {% endblock %}
             </div>

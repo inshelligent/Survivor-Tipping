@@ -1,13 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Admin: Enter contestant details</h1>
-<ul class="errors">
-{% for field, errors in form.errors.items() %}
-    <li>
-        {{ form[field].label }}: {{ ', '.join(errors) }}
-    </li>
-{% endfor %}
-</ul>
+
 <form method="POST" class="pure-form pure-form-stacked">
     {{ form.csrf_token }}
 
