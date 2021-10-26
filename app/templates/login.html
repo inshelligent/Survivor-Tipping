@@ -13,13 +13,13 @@
     <form method="POST" class="pure-form pure-form-stacked">
         {{ form.csrf_token }}
 
-        {{ form.username.label }}
-        {{ form.username }}
+        {{ form.username.label (class='form-label') }}
+        {{ form.username (class='form-control') }}
         <br/>
-        {{ form.password.label }}
-        {{ form.password }}
+        {{ form.password.label (class='form-label')}}
+        {{ form.password (class='form-control')}}
         <br/>
-        {{ form.submit(class_="pure-button pure-button-primary") }}
+        {{ form.submit(class_="btn btn-warning my-2") }}
     </form>
     </div>
 {% endblock %}    
