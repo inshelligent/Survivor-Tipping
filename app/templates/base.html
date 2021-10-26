@@ -24,7 +24,7 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav pull-left">
+                  <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
                             href="{{ url_for('index') }}">Home</a>
@@ -42,7 +42,7 @@
                             href="{{ url_for('leaderboard') }}">Leaderboard</a>
                     </li>
                   </ul>
-                  <ul class="navbar-nav pull-right"></ul>
+                  <ul class="navbar-nav ms-auto flex-nowrap"></ul>
                     <li class="nav-item">
                         <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" 
                             href="{{ url_for('sign_up') }}">Sign Up</a>
