@@ -42,15 +42,15 @@
                             href="{{ url_for('leaderboard') }}">Leaderboard</a>
                     </li>
                   </ul>
-                  <ul class="navbar-nav ml-auto"></ul>
+                  <ul class="navbar-nav navbar-right"></ul>
                     <li class="nav-item">
                       <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" 
-                          href="{{ url_for('sign_up') }}" style="float:right">Sign Up</a>
+                          href="{{ url_for('sign_up') }}">Sign Up</a>
                     </li>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link {% if active_menu_item == 'Login' %} active {% endif %}" 
-                        href="{{ url_for('login') }}" style="float:right">Login</a>
+                        href="{{ url_for('login') }}">Login</a>
                     </li>
                   </ul>
                 </div>
