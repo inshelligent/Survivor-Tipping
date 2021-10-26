@@ -13,13 +13,16 @@
     </head>
     <body>
         <div class='content'>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" height="100px">
+            </div>
             <div class="header">
                 Cosy Couch Survivor
-            <!--Troy touched these parts: lines 18-57-->
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
+            <!--Troy touched these parts: lines 18-57-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-0 p-0">
                 <a class="navbar-brand" href="#"></a>
-                    <img src="/static/logo.png" alt ="Survivor Logo" style="width:70px;" class="rounded-pill">
+                    <!-- <img src="/static/logo.png" alt ="Survivor Logo" style="width:70px;" class="rounded-pill"> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,7 +45,7 @@
                             href="{{ url_for('leaderboard') }}">Leaderboard</a>
                     </li>
                   </ul>
-                  <ul class="navbar-nav ms-auto flex-nowrap"></ul>
+                  <ul class="navbar-nav ms-auto flex-nowrap">
                     <li class="nav-item">
                         <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" 
                             href="{{ url_for('sign_up') }}">Sign Up</a>
@@ -56,9 +59,11 @@
               </nav>
               <!-- To this part -->
 
+            <!-- moved logo to the header space
             <div class="logo">
                 <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
-            </div>
+            </div> -->
+            
             <div class='content-inside'>
                 <!-- Show any flashed messages on the page -->
                 {% with messages = get_flashed_messages() %}
