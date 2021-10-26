@@ -13,14 +13,14 @@
 <form method="POST" class="pure-form pure-form-stacked">
         {{ form.csrf_token }}
 
-        {{ form.tribal_id.label }}
-        {{ form.tribal_id }}
+        {{ form.tribal_id.label (class='form-label')}}
+        {{ form.tribal_id (class='form-control')}}
     <br/>
-        {{ form.voted_out_id.label }}
-        {{ form.voted_out_id }}
+        {{ form.voted_out_id.label (class='form-label') }}
+        {{ form.voted_out_id (class='form-control')}}
     <br/>
         <br/>
-        {{ form.submit(class_="pure-button pure-button-primary") }}
+        {{ form.submit(class_="btn btn-warning my-2") }}
     </form>
 </div>
 {% endblock %}
