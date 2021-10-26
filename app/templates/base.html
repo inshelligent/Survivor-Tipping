@@ -27,28 +27,28 @@
                   <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                            href="{{ url_for('/index') }}">Home</a>
+                            href="{{ url_for('index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                            href="{{ url_for('/contestants') }}">Contestants</a>
+                        <a class="nav-link {% if active_menu_item == 'Contestants' %} active {% endif %}" 
+                            href="{{ url_for('contestants') }}">Contestants</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                            href="{{ url_for('/vote') }}">Vote</a>
+                        <a class="nav-link {% if active_menu_item == 'Vote' %} active {% endif %}" 
+                            href="{{ url_for('vote') }}">Vote</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                            href="{{ url_for('/leaderboard') }}">Leaderboard</a>
+                        <a class="nav-link {% if active_menu_item == 'Leaderboard' %} active {% endif %}" 
+                            href="{{ url_for('leaderboard') }}">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                          href="{{ url_for('/sign_up') }}" style="float:right">Sign Up</a>
+                      <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" 
+                          href="{{ url_for('sign_up') }}" style="float:right">Sign Up</a>
                     </li>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" 
-                        href="{{ url_for('/login') }}" style="float:right">Login</a>
+                    <a class="nav-link {% if active_menu_item == 'Login' %} active {% endif %}" 
+                        href="{{ url_for('login') }}" style="float:right">Login</a>
                     </li>
                   </ul>
                 </div>
