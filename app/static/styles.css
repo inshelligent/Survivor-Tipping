@@ -62,6 +62,7 @@ h1 {
   float:right;
   vertical-align: top; 
   z-index: -1;
+  padding-top: 10px;
   padding-right: 30px;
 }
 
