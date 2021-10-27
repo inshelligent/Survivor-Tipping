@@ -14,7 +14,6 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
         {% for c in contestants %}
         <tr>
             <td>{{ c.name }}</td>
@@ -40,7 +39,6 @@
             </td>
         </tr>
         {% endfor %}
-    </tbody>
 </table>
 <p>
     <a class="pure-button pure-button-primary" href="{{ url_for('add_contestant') }}">
