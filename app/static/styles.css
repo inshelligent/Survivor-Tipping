@@ -61,7 +61,8 @@ h1 {
 .logo {
   float:right;
   vertical-align: top; 
-  z-index: -1; 
+  z-index: -1;
+  padding-right: 30px;
 }
 
 /* Style the tables */
