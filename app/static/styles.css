@@ -75,6 +75,9 @@ h1 {
 }
 .table-header {
     text-align: left;
+    background-color: rgb(118, 67, 48);
+    font-style: #faf4c3;
+
 }
 .table-cell {
     padding: 10px;
