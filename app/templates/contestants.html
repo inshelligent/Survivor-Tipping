@@ -2,49 +2,49 @@
 {% set active_menu_item = 'Contestants' %}
 
 {% block content %}
-    <h1>Contestants remaining in the competition</h1>
-    <table class="table">
-        <tr class="table-header">
-            <th class="table-cell">Name</th>
-            <th class="table-cell">Age</th>
-            <th class="table-cell">Occupation</th>
-            <th class="table-cell">About</th>
-        </tr>
-        <!-- Populate table from all non-eliminated contestants in Contestants table. 
+<h1>Contestants remaining in the competition</h1>
+<table class="table">
+    <tr class="table-header">
+        <th class="table-cell">Name</th>
+        <th class="table-cell">Age</th>
+        <th class="table-cell">Occupation</th>
+        <th class="table-cell">About</th>
+    </tr>
+    <!-- Populate table from all non-eliminated contestants in Contestants table. 
             Use visual cue to highlight eliminated contestants -->
-        {% for p in players %}
-            {% if not p.is_eliminated %}
-                <tr class="table-row">
-                    <td class="table-cell">{{ p.name }}</td>
-                    <td class="table-cell">{{ p.age }}</td>
-                    <td class="table-cell">{{ p.occupation}}</td>
-                    <td class="table-cell">{{ p.description}}</td>
-                    <td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-    <Br></Br>
-    <h1>Eliminated Contestants</h1>
-    <table class="table">
-        <tr class="table-header">
-            <th class="table-cell">Name</th>
-            <th class="table-cell">Age</th>
-            <th class="table-cell">Occupation</th>
-            <th class="table-cell">About</th>
-        </tr>
-        <!-- Populate table from all eliminated contestants in Contestants table. 
+    {% for p in players %}
+    {% if not p.is_eliminated %}
+    <tr class="table-row">
+        <td class="table-cell">{{ p.name }}</td>
+        <td class="table-cell">{{ p.age }}</td>
+        <td class="table-cell">{{ p.occupation}}</td>
+        <td class="table-cell">{{ p.description}}</td>
+        <td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+<Br></Br>
+<h1>Eliminated Contestants</h1>
+<table class="table">
+    <tr class="table-header">
+        <th class="table-cell">Name</th>
+        <th class="table-cell">Age</th>
+        <th class="table-cell">Occupation</th>
+        <th class="table-cell">About</th>
+    </tr>
+    <!-- Populate table from all eliminated contestants in Contestants table. 
             Use visual cue to highlight eliminated contestants -->
-        {% for p in players %}
-            {% if p.is_eliminated %}
-                <tr class="table-row">
-                    <td class="table-cell">{{ p.name }}</td>
-                    <td class="table-cell">{{ p.age }}</td>
-                    <td class="table-cell">{{ p.occupation}}</td>
-                    <td class="table-cell">{{ p.description}}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+    {% for p in players %}
+    {% if p.is_eliminated %}
+    <tr class="table-row">
+        <td class="table-cell">{{ p.name }}</td>
+        <td class="table-cell">{{ p.age }}</td>
+        <td class="table-cell">{{ p.occupation}}</td>
+        <td class="table-cell">{{ p.description}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
 
 {% endblock %}
