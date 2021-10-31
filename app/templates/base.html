@@ -33,26 +33,29 @@
                     <li class="nav-item">
                         <a class="nav-link {% if active_menu_item == 'Home' %} active {% endif %}" href="{{ url_for('index') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Contestants' %} active {% endif %}" href="{{ url_for('contestants') }}">Contestants</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Vote' %} active {% endif %}" href="{{ url_for('vote') }}">Vote</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if active_menu_item == 'Leaderboard' %} active {% endif %}" href="{{ url_for('leaderboard') }}">Leaderboard</a>
-                    </li>
-                    {% if current_user.is_admin %}
+                    {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if active_menu_item == 'Admin' %} active {% endif %}" href="{{ url_for('admin') }}">Admin Panel</a>
+                            <a class="nav-link {% if active_menu_item == 'Contestants' %} active {% endif %}" href="{{ url_for('contestants') }}">Contestants</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu_item == 'Vote' %} active {% endif %}" href="{{ url_for('vote') }}">Vote</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu_item == 'Leaderboard' %} active {% endif %}" href="{{ url_for('leaderboard') }}">Leaderboard</a>
+                        </li>
+
+                        {% if current_user.is_admin %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if active_menu_item == 'Admin' %} active {% endif %}" href="{{ url_for('admin') }}">Admin Panel</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
                 <!-- this sits on the right hand side -->
                 <ul class="navbar-nav ms-auto flex-nowrap">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Logged in as: {{ current_user.username }}</a>
+                        <a class="nav-link" href="#">Logged in as: {{ current_user.username }}</a>
                     </li>
                     <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>

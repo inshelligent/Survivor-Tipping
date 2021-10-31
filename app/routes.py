@@ -9,6 +9,7 @@ from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
 from app.forms import AddUserForm, LoginForm, AddVoteForm, AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm
+from app.decorators import admin_required
 
 TITLE = "Cosy Couch Survivor"
 
@@ -59,13 +60,14 @@ def index():
     return render_template('index.html', title=TITLE, user=user, comments=comments)
 
 @app.route('/admin')
+@admin_required
 def admin():
-    user = ""   # need to add some logic to check for logged in user
     return render_template('admin.html', title=TITLE, user=user)
 
 # CONTESTANTS SECTION #
 # Public Contestants page which lists all the players/competitors in the show, separated by eliminated status
 @app.route('/contestants')
+@login_required
 def contestants():
     #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
@@ -74,6 +76,7 @@ def contestants():
     return render_template('contestants.html', players=contestants, title="Meet the contestants")
 
 @app.route('/admin_contestants')
+@admin_required
 def admin_contestants():
     # The records from the table are retrieved and put in an iterable data structure
     contestants = Contestant.query.all()
@@ -81,6 +84,7 @@ def admin_contestants():
     return render_template('admin_contestants.html', contestants=contestants, title="Contestant Admin")
 
 @app.route('/add_contestant', methods=['GET', 'POST'])
+@admin_required
 def add_contestant():
     form = AddContestantForm()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
@@ -100,6 +104,7 @@ def add_contestant():
     return render_template('add_contestant.html', form = form)
 
 @app.route('/edit_contestant/<int:id>', methods = ['GET', 'POST'])
+@admin_required
 def edit_contestant(id):
     # Retrieves the contestant record for the given id, if it exists
     contestant = Contestant.query.get_or_404(id)
@@ -125,6 +130,7 @@ def edit_contestant(id):
     return render_template('edit_contestant.html', form = form, contestant_name = contestant_name)
 
 @app.route('/delete_contestant/<int:id>')
+@admin_required
 def delete_contestant(id):
     # Retrieves the contestant record for the given id
     contestant = Contestant.query.get_or_404(id)
@@ -138,6 +144,7 @@ def delete_contestant(id):
     return redirect(url_for('admin_contestants'))
 
 @app.route('/eliminate_contestant', methods=['GET', 'POST'])
+@admin_required
 def eliminate_contestant():
     form = EliminateContestantForm()
     # gets the choices for the current Tribals
@@ -186,6 +193,7 @@ def eliminate_contestant():
 # TRIBAL SECTION #
 # Admin Tribal Page - allows an admin to create a tribal record
 @app.route('/add_tribal', methods = ['GET', 'POST'])
+@admin_required
 def add_tribal():
     form = AddTribalForm()
     if form.validate_on_submit():
@@ -206,6 +214,7 @@ def add_tribal():
 # VOTING SECTION #
 # Send user to the Tipping page - allows user to place a tip, then saves to the votes table
 @app.route('/vote', methods = ['GET', 'POST'])
+@login_required
 def vote():
     form = AddVoteForm()
     # store the user_id in a hidden field on the form
@@ -300,6 +309,7 @@ def submit_sign_up():
 
 # Leaderboard page which lists all the players/app users, ordered by score desc
 @app.route('/leaderboard')
+@login_required
 def leaderboard():
     #fetch users from DB
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)

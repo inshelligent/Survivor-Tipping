@@ -85,7 +85,7 @@ def create_db():
     db.session.commit()
 
     admin = models.User(username = "admin",
-                        password_hash = os.environ.get('ADMIN_PASSWORD'),
+                        password = os.environ.get('ADMIN_PASSWORD'),
                         email = "admin@blah.com.au",
                         firstname = "Admin",
                         surname = "User",
@@ -94,7 +94,7 @@ def create_db():
     db.session.add(admin)
 
     general = models.User(username = "joebloggs",
-                        password_hash = os.environ.get('JOE_PASSWORD'),
+                        password = os.environ.get('JOE_PASSWORD'),
                         email = "joe@blah.com.au",
                         firstname = "Joe",
                         surname = "Bloggs",
