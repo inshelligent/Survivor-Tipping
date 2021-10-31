@@ -1,6 +1,9 @@
+import os
+
 from datetime import date
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 app = Flask(__name__)
 # Sets up configuration setting for the database location
@@ -9,7 +12,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #Turns this setting off, he
 # allow us to see the SQL commands that are being run and any errors/messages to help with debugging
 app.config['SQLALCHEMY_ECHO'] = True
 # stops cross-script forgery, used with WTForms
-app.config['SECRET_KEY'] = 'Survive-is-the-key'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
+# Set up the login manager for the app
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 db = SQLAlchemy(app)
 
@@ -77,7 +85,7 @@ def create_db():
     db.session.commit()
 
     admin = models.User(username = "admin",
-                        password = "administrator",
+                        password_hash = os.environ.get('ADMIN_PASSWORD'),
                         email = "admin@blah.com.au",
                         firstname = "Admin",
                         surname = "User",
@@ -86,7 +94,7 @@ def create_db():
     db.session.add(admin)
 
     general = models.User(username = "joebloggs",
-                        password = "legend_joe",
+                        password_hash = os.environ.get('JOE_PASSWORD'),
                         email = "joe@blah.com.au",
                         firstname = "Joe",
                         surname = "Bloggs",

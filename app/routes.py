@@ -3,6 +3,7 @@ from datetime import date, datetime
 from sqlalchemy import desc, null
 from flask import render_template, request, redirect, url_for, flash
 from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
+from flask_login import login_user, logout_user, current_user, login_required
 
 from app import app, db
 
@@ -257,18 +258,30 @@ def sign_up():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        # The form has been submitted and the inputs are valid
-        # Create a user object for checking stuff, mapping form inputs to object
-        tempUser = User()
-        form.populate_obj(obj=tempUser)
-        # find out if they are a registered user
-        #user = User.query.get_or_404(tempUser.username)
-        # if they are, display welcome message and save their ID and is_admin status
-        ######## DO STUFF HERE ########
-        # Take user back to home page
-        return redirect(url_for('index'))
+        # Find the user based off the name that has been entered in form
+        user = User.query.filter_by(username=form.username.data).first()
+        # Check if the user actually exists in the database
+        if user is not None:
+            # Check if the correct password has been entered and login, if so
+            if user.verify_password(form.password.data):
+                login_user(user, form.remember_me.data)
+                return redirect(url_for('index'))
+            else:
+                flash('DEBUG: Invalid password')
 
-    return render_template('login.html', form = form, title="Log In")
+        flash('DEBUG: Invalid username')
+        flash(user)
+#        flash('Invalid username or password')
+
+    # If there is a GET request, or there are errors in the form, return the view with the form
+    return render_template('login.html', title = 'Login', form = form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.')
+    return redirect(url_for('index'))
 
 ###### TO-DO ####### Do we need this??
 # Sign-up / registration form submit   
@@ -284,18 +297,6 @@ def submit_sign_up():
         # Returns the view with a message that the user has been added
         return render_template('sign_up_received.html', new_user = new_user, title="Sign Up Successful") """
 
-###### TO-DO ####### Do we need this??
-# login page form submit
-"""@app.route('/login-received', methods = ["POST"])
-def check_login():
-    if request.method == "POST":
-        user_name = request.form.get('username')
-        pword = request.form.get('pword')
-        # Add verfication and if statement depending on results, dummy code assumes 
-        comments = load_from_file('chat.csv')
-        user = {'username': user_name}
-        # Returns the view with a message that the user is now logged in
-        return render_template('index.html', title=TITLE, user=user, comments=comments) """
 
 # Leaderboard page which lists all the players/app users, ordered by score desc
 @app.route('/leaderboard')

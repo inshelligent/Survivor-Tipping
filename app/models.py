@@ -1,12 +1,15 @@
-from app import db
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from app import db, login_manager
 
 # sqlalchemy provides a class called Model that is a declarative base which can be used to declare models:
 
 # this holds all the details for a user
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     username = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(20), nullable=False)
+    password_hash = db.Column(db.String(128))
     email = db.Column(db.String(50), nullable=False)
     firstname = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
@@ -16,7 +19,23 @@ class User(db.Model):
 
     def __repr__(self):
             return f'{self.firstname}'
+    
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
 
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+    
 # this holds all the details for a contestant
 class Contestant(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
