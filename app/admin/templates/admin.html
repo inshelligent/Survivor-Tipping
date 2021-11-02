@@ -2,11 +2,7 @@
 {% set active_menu_item = 'Admin' %}
 
 {% block content %}
-    {% if user.username %}
-        <h1>Hello {{ user.username }}, welcome to the Admin Panel</h1>
-    {% else %}
-        <h1>Admin Panel</h1>
-    {% endif %}
+    <h1>Admin Panel</h1>
         
     <div class="homeloginbuttons">
         <a class="link-button" href="/admin_contestants">Manage Contestants</a>&nbsp;&nbsp;&nbsp;

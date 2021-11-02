@@ -2,8 +2,8 @@
 {% set active_menu_item = 'Home' %}
 
 {% block content %}
-    {% if user.username %}
-        <h1>Hello {{ user.username }}, welcome to Cosy Couch Survivor!</h1>
+    {% if current_user.firstname %}
+        <h1>Hello {{ current_user.firstname }}, welcome to Cosy Couch Survivor!</h1>
     {% else %}
         <h1>Hello and welcome to Cosy Couch Survivor!</h1>
     {% endif %}
@@ -13,9 +13,5 @@
     {% for item in comments %}
         <div><p>{{ item.User }} says: <b>{{ item.Comment }}</b></p></div>
     {% endfor %}
-    <!-- 
-    <div class="homeloginbuttons">
-        <a class="link-button" href="/login">Login</a>&nbsp;&nbsp;&nbsp;
-        <a class="link-button" href="/sign_up">Sign Up</a>
-    </div>  this was decided to be confusing for users, so have removed -->
+
 {% endblock %}

@@ -26,27 +26,7 @@ class AddVoteForm(FlaskForm):
         return result  """
     
 
-class AddContestantForm(FlaskForm):
-    country = StringField('Country', default='Australia')
-    season = IntegerField('Season', default=6)
-    name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])
-    age = IntegerField('Age')
-    occupation = StringField('Occupation')
-    description = StringField('Description')
-    is_eliminated = BooleanField('Is eliminated?', default=False)
-    submit = SubmitField('Add Contestant')
 
-class EditContestantForm(AddContestantForm):   # nice bit of inheritance happening here!
-    submit = SubmitField('Save Contestant')
-
-class EliminateContestantForm(FlaskForm):
-    tribal_id = SelectField('Tribal:', coerce=int, validators = [InputRequired()])
-    voted_out_id = SelectField('Contestant name:', coerce=int, validators = [InputRequired()])
-    submit = SubmitField('Eliminate Contestant')
-
-class AddTribalForm(FlaskForm):
-    tribal_date = DateField('Tribal Date:', default=date.today(), validators = [InputRequired()])
-    submit = SubmitField('Create Tribal')
 
 class AddUserForm(FlaskForm):
     firstname = StringField('First Name', validators=[InputRequired(), Length(min=1, max=50)])
