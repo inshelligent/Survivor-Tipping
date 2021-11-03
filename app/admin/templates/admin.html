@@ -5,8 +5,8 @@
     <h1>Admin Panel</h1>
         
     <div class="homeloginbuttons">
-        <a class="link-button" href="/admin_contestants">Manage Contestants</a>&nbsp;&nbsp;&nbsp;
-        <a class="link-button" href="/add_tribal">Add Tribal</a>&nbsp;&nbsp;&nbsp;
-        <a class="link-button" href="/eliminate_contestant">Eliminate Contestant</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="{{ url_for('admin.admin_contestants') }}">Manage Contestants</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="{{ url_for('admin.add_tribal') }}">Add Tribal</a>&nbsp;&nbsp;&nbsp;
+        <a class="link-button" href="{{ url_for('admin.eliminate_contestant') }}">Eliminate Contestant</a>&nbsp;&nbsp;&nbsp;
     </div>
 {% endblock %}

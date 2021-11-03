@@ -29,12 +29,12 @@
                 {% endif %}
             </td>
             <td>
-                <a class="button-secondary pure-button" href="{{ url_for('edit_contestant', id=c.id) }}">
+                <a class="button-secondary pure-button" href="{{ url_for('admin.edit_contestant', id=c.id) }}">
                     Edit
                 </a>
             </td>
             <td>
-                <a class="button-warning pure-button" href="{{ url_for('delete_contestant', id=c.id) }}">
+                <a class="button-warning pure-button" href="{{ url_for('admin.delete_contestant', id=c.id) }}">
                     Delete
                 </a>
             </td>
@@ -43,7 +43,7 @@
     </tbody>
 </table>
 <p>
-    <a class="pure-button pure-button-primary" href="{{ url_for('add_contestant') }}">
+    <a class="pure-button pure-button-primary" href="{{ url_for('admin.add_contestant') }}">
         Add another contestant
     </a>
 </p>

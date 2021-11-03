@@ -23,6 +23,10 @@ db = SQLAlchemy(app)
 
 from app import models, forms, routes
 
+from app.admin import bp as admin_bp
+app.register_blueprint(admin_bp, prefix='/admin')
+
+
 @app.cli.command('create-db')
 def create_db():
 

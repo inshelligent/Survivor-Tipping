@@ -43,12 +43,11 @@
                         <li class="nav-item">
                             <a class="nav-link {% if active_menu_item == 'Leaderboard' %} active {% endif %}" href="{{ url_for('leaderboard') }}">Leaderboard</a>
                         </li>
-<!--
                         {% if current_user.is_admin %}
                             <li class="nav-item">
                                 <a class="nav-link {% if active_menu_item == 'Admin' %} active {% endif %}" href="{{ url_for('admin.admin_home') }}">Admin Panel</a>
                             </li>
-                        {% endif %}  -->
+                        {% endif %}
                     {% endif %}
                 </ul>
                 <!-- this sits on the right hand side -->
