@@ -21,10 +21,9 @@
         <div class="header">
             Cosy Couch Survivor
         </div>
-        <!--Troy touched these parts: lines 18-57-->
+ 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-0 p-0">
             <a class="navbar-brand" href="#"></a>
-            <!-- <img src="/static/logo.png" alt ="Survivor Logo" style="width:70px;" class="rounded-pill"> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,25 +56,19 @@
                         <a class="nav-link" href="#">Logged in as: {{ current_user.username }}</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                           </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" href="{{ url_for('sign_up') }}">Sign Up</a>
+                            <a class="nav-link {% if active_menu_item == 'Sign Up' %} active {% endif %}" href="{{ url_for('auth.sign_up') }}">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if active_menu_item == 'Login' %} active {% endif %}" href="{{ url_for('login') }}">Login</a>
+                            <a class="nav-link {% if active_menu_item == 'Login' %} active {% endif %}" href="{{ url_for('auth.login') }}">Login</a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </nav>
-        <!-- To this part -->
-
-        <!-- moved logo to the header space
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logo.png') }}" height="210px" width="250px">
-            </div> -->
 
         <div class='content-inside'>
             <!-- Show any flashed messages on the page -->
@@ -105,7 +98,7 @@
     </div>
     <div class="clear"></div>
     <div class="footer">
-        <p>Privacy Policy | Contact Us | Copyright 2021 | Created by EDPF5023 Legends aka Kylie, Troy & Michelle <a href="{{ url_for('static', filename='flick.jpg') }}">🥚</a></p>
+        <p>Privacy Policy | Contact Us | Copyright 2021 | Created by EDPF5023 Legends aka Kylie, Troy &amp; Michelle <a href="{{ url_for('static', filename='flick.jpg') }}">🥚</a></p>
     </div>
     <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
 </body>

@@ -6,7 +6,7 @@ from app import db
 from app.admin import bp
 from app.models import Contestant, Tribal, Vote
 from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm
-from app.decorators import admin_required
+from app.auth.decorators import admin_required
 
 TITLE = "Cosy Couch Survivor"
 

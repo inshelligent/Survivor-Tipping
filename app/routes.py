@@ -1,15 +1,15 @@
 import csv
-from datetime import date, datetime
-from sqlalchemy import desc, null
-from flask import render_template, request, redirect, url_for, flash
-from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
-from flask_login import login_user, logout_user, current_user, login_required
+#from datetime import date, datetime
+#from sqlalchemy import desc, null
+from flask import render_template
+#from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
+from flask_login import current_user, login_required
 
 from app import app, db
 
 from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddUserForm, LoginForm, AddVoteForm
-from app.decorators import admin_required
+from app.forms import AddVoteForm
+
 
 TITLE = "Cosy Couch Survivor"
 
@@ -55,9 +55,8 @@ def get_current_tribals():
 @app.route('/')
 @app.route('/index')
 def index():
-    user = ""   # need to add some logic to check for logged in user
     comments = load_from_file('chat.csv')  # TO-DO IF TIME
-    return render_template('index.html', title=TITLE, user=user, comments=comments)
+    return render_template('index.html', title=TITLE, comments=comments)
 
 
 # CONTESTANTS SECTION #
@@ -97,61 +96,12 @@ def vote():
         db.session.add(vote)
         db.session.commit()
         
-        # Returns the view with a message that the student has been added
+        # Returns the view with a message that the vote has been added
         #return redirect(url_for('vote_successful'))
         return render_template('vote_successful.html', vote = vote, title="Vote Placed")
     
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('vote.html', form = form, title="Voting")
-
-# USER SECTION #
-# Send user to Sign-up / registration page
-@app.route('/sign_up', methods=['GET', 'POST'])
-def sign_up():
-    form = AddUserForm()
-    if form.validate_on_submit():
-        # The form has been submitted and the inputs are valid
-        # Create a Contestant object for saving to the database, mapping form inputs to object
-        user = User()
-        form.populate_obj(obj=user)
-        # Adds the user object to session for creation and saves changes to db
-        db.session.add(user)
-        db.session.commit()
-        ####### DISPLAY SOME KIND OF SUCCESS MESSAGE #### "Sign Up Successful"
-        # Take user back to home page
-        return redirect(url_for('index'))
-
-    return render_template('sign_up.html', form = form, title="Sign Up")
-
-# send user to the login page
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Find the user based off the name that has been entered in form
-        user = User.query.filter_by(username=form.username.data).first()
-        # Check if the user actually exists in the database
-        if user is not None:
-            # Check if the correct password has been entered and login, if so
-            if user.verify_password(form.password.data):
-                login_user(user, form.remember_me.data)
-                return redirect(url_for('index'))
-            else:
-                flash('DEBUG: Invalid password')
-
-        flash('DEBUG: Invalid username')
-        flash(user)
-#        flash('Invalid username or password')
-
-    # If there is a GET request, or there are errors in the form, return the view with the form
-    return render_template('login.html', title = 'Login', form = form)
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash('You have been logged out.')
-    return redirect(url_for('index'))
 
 
 # Leaderboard page which lists all the players/app users, ordered by score desc

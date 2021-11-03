@@ -6,18 +6,20 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 app = Flask(__name__)
+
 # Sets up configuration setting for the database location
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///survivor.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #Turns this setting off, helps with performance
 # allow us to see the SQL commands that are being run and any errors/messages to help with debugging
 app.config['SQLALCHEMY_ECHO'] = True
+
 # stops cross-script forgery, used with WTForms
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Set up the login manager for the app
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'auth.login'
 
 db = SQLAlchemy(app)
 
@@ -26,6 +28,8 @@ from app import models, forms, routes
 from app.admin import bp as admin_bp
 app.register_blueprint(admin_bp, prefix='/admin')
 
+from app.auth import bp as auth_bp
+app.register_blueprint(auth_bp, url_prefix='/auth')
 
 @app.cli.command('create-db')
 def create_db():

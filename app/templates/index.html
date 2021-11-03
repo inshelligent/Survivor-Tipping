@@ -2,11 +2,13 @@
 {% set active_menu_item = 'Home' %}
 
 {% block content %}
-    {% if current_user.firstname %}
+    {% if current_user.is_authenticated %}
         <h1>Hello {{ current_user.firstname }}, welcome to Cosy Couch Survivor!</h1>
     {% else %}
         <h1>Hello and welcome to Cosy Couch Survivor!</h1>
+        <h2>Please register or login</h2>
     {% endif %}
+    <p>&nbsp;</p>
     <h2>Here's all the latest Survivor gossip</h2>
     <!-- Displaying the last five comments from the apps users about the game. 
         In this version the chat feature is not functional -->
