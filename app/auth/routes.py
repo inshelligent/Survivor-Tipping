@@ -13,15 +13,19 @@ def sign_up():
     form = AddUserForm()
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
-        # Create a User object for saving to the database, mapping form inputs to object
-        user = User()
-        form.populate_obj(obj=user)
-        # Adds the user object to session for creation and saves changes to db
-        db.session.add(user)
-        db.session.commit()
-        ####### DISPLAY SOME KIND OF SUCCESS MESSAGE #### "Sign Up Successful"
-        # Take user back to home page
-        return redirect(url_for('index'))
+        # Check if the username already exists in the database
+        checkuser = User.query.filter_by(username=form.username.data).first()
+        if checkuser is None:
+            # Create a User object for saving to the database, mapping form inputs to object
+            user = User()
+            form.populate_obj(obj=user)
+            # Adds the user object to session for creation and saves changes to db
+            db.session.add(user)
+            db.session.commit()
+            flash('New user registered successfully. Please login.')
+            # Take user back to home page
+            return redirect(url_for('index'))
+        flash('A user with that username already exists. Please choose another.')
 
     return render_template('sign_up.html', form = form, title="Sign Up")
 
