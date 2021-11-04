@@ -114,7 +114,7 @@ h1 {
   margin: 25px;
 }
 
-.link-button {
+/*.link-button {
   text-align: center;
   color: white;
   font-size: 20px;
@@ -123,6 +123,10 @@ h1 {
   padding: 10px;
   border-radius: 15px;
   text-decoration: none;
+} */
+.btn-primary {
+  background: #566e3d;
+
 }
 
 .clear {

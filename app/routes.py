@@ -77,8 +77,6 @@ def contestants():
 @login_required
 def vote():
     form = AddVoteForm()
-    # store the user_id in a hidden field on the form
-    #form.user_id = 2          # This did not work ### HARD CODED USER ID FOR NOW
     # gets the choices for the current Tribals
     form.tribal_id.choices = get_current_tribals()
     # gets the choices for the contestants form field
@@ -91,7 +89,7 @@ def vote():
         # Get data from the form and put in a Vote object
         vote = Vote()
         form.populate_obj(obj=vote)
-        vote.user_id = 2          # !!! HARD CODED USER ID FOR NOW !!!
+        vote.user_id = current_user.id
         # Adds the vote object to session for creation and saves changes to db
         db.session.add(vote)
         db.session.commit()
