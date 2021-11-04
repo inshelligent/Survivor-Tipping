@@ -9,16 +9,16 @@ html, body {
   height: 100%;
   margin: 0;
   background-color: rgb(246, 229, 138);
-  font-family: Arial, Helvetica, sans-serif;
-}
+} 
 
-/* Style the content */
+/* Style the content - Without this the footer doesn't sit on the bottom */ 
 .content {
   min-height: 100%;
-}
+} 
 
-.content-inside {
-  padding: 20px;
+/* adds a bit of space at the top, and gives room at the bottom for the footer */
+.container {
+  padding-top: 20px;
   padding-bottom: 50px;
 }
 
@@ -31,21 +31,6 @@ html, body {
   background-color: rgb(118, 67, 48);
   text-align: center;
   color: #e3a537;
-}
-
-.text-area {
-  margin: 20px;
-  padding: 20px;
-  border:1px solid rgb(118, 67, 48);
-  border-radius: 15px;
-  width: 80%;
-  display: block;
-	text-align: left;
-  background-color: rgb(246, 229, 138, 0.5);
-}
-
-h1 {
-  font-family: 'Acme', Arial, Helvetica, sans-serif;
 }
 
 /* Style the header */
@@ -66,7 +51,15 @@ h1 {
   padding-right: 30px;
 }
 
-/* Style the tables */
+h1 {
+  font-family: 'Acme', Arial, Helvetica, sans-serif;
+}
+
+.table {
+  border-color: #e3a537;
+}
+
+/* Style the tables 
 .table {
   border-spacing: 0;
   margin: 1rem;
@@ -79,51 +72,13 @@ h1 {
     text-align: left;
     background-color: rgb(118, 67, 48);
     color: #faf4c3;
-
 }
 .table-cell {
     padding: 10px;
-}
+}  */
 
-/* Style the top navigation bar */
-.topnav {
-  overflow: hidden;
-  background-color: #210f0f;
-}
 
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  color: #e3a537;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #566e3d;
-  color: #e3a537;
-}
-
-/* Style the login buttons on home page */
-.homeloginbuttons {
-  text-align: center;
-  padding: 10px 10px;
-  margin: 25px;
-}
-
-/*.link-button {
-  text-align: center;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  background: #566e3d;
-  padding: 10px;
-  border-radius: 15px;
-  text-decoration: none;
-} */
+/* override the bootstrap style to make it green */
 .btn-primary {
   background: #566e3d;
 
