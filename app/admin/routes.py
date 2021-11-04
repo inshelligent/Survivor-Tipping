@@ -100,6 +100,9 @@ def delete_contestant(id):
         flash('Contestant was deleted successfully!')
     else:
         flash('Contestant is in use and cannot be deleted!')
+
+    # set all the counts back to zero
+    check_tribals = check_votes1 = check_votes2 = check_votes3 = 0
     
     # Returns the view that displays the list of contestants
     return redirect(url_for('admin.admin_contestants'))
