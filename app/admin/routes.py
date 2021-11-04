@@ -87,13 +87,21 @@ def edit_contestant(id):
 def delete_contestant(id):
     # Retrieves the contestant record for the given id
     contestant = Contestant.query.get_or_404(id)
-    # The fruit record is deleted
-    db.session.delete(contestant)
-    # The change (the deletion) are saved in the database file
-    db.session.commit()
-    flash('Contestant was deleted successfully!')
-
-    # Returns the view that displays the list of fruits
+    # check that the contestant isn't part of a tribal or vote to maintain referential integrity
+    check_tribals = Tribal.query.filter_by(voted_out_id=id).count()
+    check_votes1 = Vote.query.filter_by(first_choice_id=id).count()
+    check_votes2 = Vote.query.filter_by(second_choice_id=id).count()
+    check_votes3 = Vote.query.filter_by(third_choice_id=id).count()
+    if check_tribals + check_votes1 + check_votes2 + check_votes3 == 0:
+        # The contestant record is deleted
+        db.session.delete(contestant)
+        # The change (the deletion) ie saved in the database file
+        db.session.commit()
+        flash('Contestant was deleted successfully!')
+    else:
+        flash('Contestant is in use and cannot be deleted!')
+    
+    # Returns the view that displays the list of contestants
     return redirect(url_for('admin.admin_contestants'))
 
 @bp.route('/eliminate_contestant', methods=['GET', 'POST'])
