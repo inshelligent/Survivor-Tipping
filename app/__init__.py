@@ -31,6 +31,9 @@ app.register_blueprint(admin_bp, prefix='/admin')
 from app.auth import bp as auth_bp
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
+from app.chart import bp as chart_bp
+app.register_blueprint(chart_bp, url_prefix='/chart')
+
 @app.cli.command('create-db')
 def create_db():
 

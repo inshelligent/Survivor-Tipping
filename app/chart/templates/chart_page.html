@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<!-- The HTML element where the Plotly chart will be displayed -->
+<div id="chart" class="chart"></div>
+
+<!-- Include the Plotly JavaScript, to create the chart -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<!-- Get the JSON data for the Plot from the route and render it with Plotly -->
+<script type="text/javascript">
+    var graphs = {{ chart_JSON | safe }};
+    Plotly.plot('chart',graphs,{});        
+</script>
+{% endblock %}
