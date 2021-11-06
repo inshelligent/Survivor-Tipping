@@ -10,7 +10,7 @@ from app import db
 from app.chart import bp
 from app.models import Contestant
 
-@bp.route('/')
+@bp.route('/chart')
 @login_required
 def chart_list():
     return render_template('chart_list.html', title = 'Survivor Charts')
