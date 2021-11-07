@@ -23,9 +23,9 @@ def user_scores_chart():
     df = pd.read_sql(score_query.statement, score_query.session.bind)
 
     # Draw the chart and dump it into JSON format
-    chart = px.bar(df, x='username', y='score', 
+    chart = px.bar(df, x='username', y='score', color='username',
     labels={'username': 'User', 'score': "Score"}
-    , template='plotly_dark')
+    , template='plotly_dark', color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart
@@ -40,8 +40,8 @@ def contestant_ages_chart():
 
     # Draw the chart and dump it into JSON format
     chart = px.bar(df, x='name', y='age', 
-    labels={'name': 'Contestant', 'age': "Age"}
-    , template='plotly_dark')
+    labels={'name': 'Contestant', 'age': "Age"}, color='name'
+    , template='plotly_dark', color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart
@@ -62,7 +62,8 @@ def contestant_votes_pie_chart():
     # Draw the chart and dump it into JSON format
     chart = px.pie(df, values ='vote_count', names='name',
     color='name', labels={'name': "Contestant", 'vote_count': 'Number of Votes'}
-    , title='First Choice Votes by Contestant', template='plotly_dark')
+    , title='First Choice Votes by Contestant', template='plotly_dark',
+    color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart
@@ -84,7 +85,7 @@ def votes_by_tribal_chart():
     chart = px.bar(df, x ='name', y='first_choice_id',
     color='name', labels={'name': "Contestant", "first_choice_id": 'Votes'}
     , title='Contestant Votes by Tribal', template='plotly_dark', 
-    barmode='group', facet_row="tribal_id", facet_col='name')
+    barmode='group', facet_row="tribal_id", facet_col='name', color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart

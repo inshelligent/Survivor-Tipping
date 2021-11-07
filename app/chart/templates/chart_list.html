@@ -2,18 +2,39 @@
 
 {% block content %}
 <h3>Available Charts</h3>
-<ul>
-    <li>
-        <a href="{{ url_for('chart.user_scores_chart') }}">Current User Scores</a>
-    </li>
-    <li>
-        <a href="{{ url_for('chart.contestant_ages_chart') }}">Contestant Ages</a>
-    </li>
-    <li>
-        <a href="{{ url_for('chart.contestant_votes_pie_chart') }}">Total Contestant Votes</a>
-    </li>
-    <li>
-        <a href="{{ url_for('chart.votes_by_tribal_chart') }}">Contestant Votes by Tribal</a>
-    </li>
-</ul>
+<div class="list-group" >
+    <a href="{{ url_for('chart.user_scores_chart') }}" class="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Current User Scores</h5>
+        <small>Live User info</small>
+      </div>
+      <p class="mb-1">This bar chart compares Suvivor Tipster users scores for the current season.</p>
+      <small>Chart is dynamically generated from database at the time of access.</small>
+    </a>
+    <a href="{{ url_for('chart.contestant_ages_chart') }}" class="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Contestant Ages</h5>
+        <small class="text-muted">Contestant info</small>
+      </div>
+      <p class="mb-1">This bar chart compares the current Survivor session contestants by age.</p>
+      <small class="text-muted">Information is provided by https://10play.com.au/australian-survivor.</small>
+    </a>
+    <a href="{{ url_for('chart.contestant_votes_pie_chart') }}" class="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Total Contestant Votes</h5>
+        <small class="text-muted">Live votes info</small>
+      </div>
+      <p class="mb-1">This pie chart displays the percent of first choice votes currently allocated to each contestant.</p>
+      <small class="text-muted">Chart is dynamically generated from database at the time of access.</small>
+    </a>
+    <a href="{{ url_for('chart.votes_by_tribal_chart') }}" class="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Contestant Votes by Tribal</h5>
+          <small class="text-muted">Live votes info</small>
+        </div>
+        <p class="mb-1">This segmented bar chart displays the number of first choice votes placed on individual contestants at each tribal. Allows you to compare votes over time for each contestant.</p>
+        <small class="text-muted">Chart is dynamically generated from database at the time of access.</small>
+      </a>
+  </div>
+
 {% endblock %}
