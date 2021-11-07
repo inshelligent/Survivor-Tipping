@@ -76,7 +76,7 @@ def votes_by_tribal_chart():
         "SELECT name, tribal_id, first_choice_id FROM vote "
         "INNER JOIN contestant ON "
         "vote.first_choice_id = contestant.id "
-        "ORDER BY tribal_id, name;"
+        "ORDER BY tribal_id"
     )
     df = pd.read_sql(query, db.session.bind)
 
@@ -84,7 +84,7 @@ def votes_by_tribal_chart():
     chart = px.bar(df, x ='name', y='first_choice_id',
     color='name', labels={'name': "Contestant", "first_choice_id": 'Votes'}
     , title='Contestant Votes by Tribal', template='plotly_dark', 
-    barmode='group', facet_row="tribal_id")
+    barmode='group', facet_row="tribal_id", facet_col='name')
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart
