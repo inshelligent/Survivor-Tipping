@@ -110,7 +110,7 @@ def create_db():
                         firstname = "Joe",
                         surname = "Bloggs",
                         is_admin = False,
-                        score = 0)
+                        score = 5)
     db.session.add(general)
     # Save the created records to the database file
     db.session.commit()
