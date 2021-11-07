@@ -4,16 +4,16 @@
 <h3>Available Charts</h3>
 <ul>
     <li>
+        <a href="{{ url_for('chart.user_scores_chart') }}">Current User Scores</a>
+    </li>
+    <li>
         <a href="{{ url_for('chart.contestant_ages_chart') }}">Contestant Ages</a>
     </li>
     <li>
-        <a href="{{ url_for('chart.contestant_votes_pie_chart') }}">Contestant Votes</a>
+        <a href="{{ url_for('chart.contestant_votes_pie_chart') }}">Total Contestant Votes</a>
     </li>
     <li>
-        Chart 3
-    </li>
-    <li>
-        Chart 4
+        <a href="{{ url_for('chart.votes_by_tribal_chart') }}">Contestant Votes by Tribal</a>
     </li>
 </ul>
 {% endblock %}
