@@ -128,7 +128,7 @@ def create_db():
                         firstname = "Maxwell",
                         surname = "Smart",
                         is_admin = False,
-                        score = 3)
+                        score = 15)
     db.session.add(general)
     # Save the created records to the database file
     db.session.commit()
