@@ -112,6 +112,24 @@ def create_db():
                         is_admin = False,
                         score = 5)
     db.session.add(general)
+
+    general = models.User(username = "moneypenny",
+                        password = os.environ.get('MONEY_PASSWORD'),
+                        email = "money@blah.com.au",
+                        firstname = "Money",
+                        surname = "Penny",
+                        is_admin = False,
+                        score = 3)
+    db.session.add(general)
+
+    general = models.User(username = "maxwellsmart",
+                        password = os.environ.get('MAXWELL_PASSWORD'),
+                        email = "smart@blah.com.au",
+                        firstname = "Maxwell",
+                        surname = "Smart",
+                        is_admin = False,
+                        score = 3)
+    db.session.add(general)
     # Save the created records to the database file
     db.session.commit()
 
