@@ -1,7 +1,7 @@
 import csv
 #from datetime import date, datetime
 #from sqlalchemy import desc, null
-from flask import render_template
+from flask import render_template, flash
 #from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
 from flask_login import current_user, login_required
 
@@ -90,13 +90,17 @@ def vote():
         vote = Vote()
         form.populate_obj(obj=vote)
         vote.user_id = current_user.id
-        # Adds the vote object to session for creation and saves changes to db
-        db.session.add(vote)
-        db.session.commit()
-        
-        # Returns the view with a message that the vote has been added
-        #return redirect(url_for('vote_successful'))
-        return render_template('vote_successful.html', vote = vote, title="Vote Placed")
+        # check if this user has already voted for this Tribal before
+        checkvote = Vote.query.filter_by(user_id=current_user.id,tribal_id=vote.tribal_id).first()
+        if checkvote is None:
+            # Adds the vote object to session for creation and saves changes to db
+            db.session.add(vote)
+            db.session.commit()
+            # Returns the view with a message that the vote has been added
+            return render_template('vote_successful.html', vote = vote, title="Vote Placed")
+
+        # leave the user on this screen with a message
+        flash('You have already voted in this Tribal!')
     
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('vote.html', form = form, title="Voting")
