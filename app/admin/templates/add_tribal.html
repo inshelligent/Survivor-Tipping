@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Admin: Create a Tribal event</h1>
 
-<form method="POST" class="pure-form pure-form-stacked">
+<form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
     {{ form.tribal_date.label(class='form-label') }}
     {{ form.tribal_date (class='form-control')}}

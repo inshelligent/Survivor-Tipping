@@ -4,7 +4,7 @@
 NOTE: Setting a contestant to eliminated on this page does not create an elimination record/event.<br/>
 To eliminate a contestant, use the <a href="{{ url_for('admin.eliminate_contestant') }}">Eliminate Contestant</a> page.
 
-<form method="POST" class="pure-form pure-form-stacked">
+<form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
 
     {{ form.name.label (class='form-label')}}

@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Admin: Enter contestant details</h1>
 
-<form method="POST" class="pure-form pure-form-stacked">
+<form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
 
     {{ form.name.label (class='form-label') }}
