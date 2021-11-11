@@ -13,5 +13,6 @@
     var graphs = {{ chart_JSON | safe }};
     Plotly.plot('chart',graphs,{});        
 </script>
+<div style="float: right;"><a href="{{ url_for('chart.chart_list') }}"><button type="button" class="btn btn-warning my-2">Back</button></a></div>
 
 {% endblock %}

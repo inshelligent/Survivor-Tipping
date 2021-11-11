@@ -74,18 +74,20 @@ def contestant_votes_pie_chart():
 def votes_by_tribal_chart():
 # Run query to get count of votes of each user and load into DataFrame
     query = (
-        "SELECT name, tribal_id, first_choice_id FROM vote "
-        "INNER JOIN contestant ON "
-        "vote.first_choice_id = contestant.id "
+        "SELECT contestant.id as 'contestant_id', name, tribal.id as 'tribal_id', vote.id as 'vote_id', first_choice_id, "
+        "count(vote.id) as 'votes' FROM contestant "
+        "CROSS JOIN tribal LEFT JOIN vote ON tribal.id = "
+        "vote.tribal_id AND vote.first_choice_id = contestant.id "
+        "GROUP BY tribal_id, name "
         "ORDER BY tribal_id"
     )
     df = pd.read_sql(query, db.session.bind)
 
     # Draw the chart and dump it into JSON format
-    chart = px.bar(df, x ='name', y='first_choice_id',
-    color='name', labels={'name': "Contestant", "first_choice_id": 'Votes'}
+    chart = px.bar(df, x ='name', y='votes',
+    color='name', labels={'name': "Contestant", "votes": 'Votes'}
     , title='Contestant Votes by Tribal', template='plotly_dark', 
-    barmode='group', facet_row="tribal_id", facet_col='name', color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
+    barmode='group', facet_row="tribal_id", color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
     # Returns the template, including the JSON data for the chart
