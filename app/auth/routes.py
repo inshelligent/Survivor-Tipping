@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from app import db
 from app.auth import bp
 from app.models import User
-from .forms import LoginForm, AddUserForm
+from .forms import LoginForm, AddUserForm, ChangePasswordForm
 
 
 # Send user to Sign-up / registration page
@@ -53,3 +53,18 @@ def logout():
     logout_user()
     flash('You have been logged out.')
     return redirect(url_for('index'))
+
+@bp.route('/changepw', methods=['GET', 'POST'])
+@login_required
+def changepw():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(id=current_user.id)
+        # Check if the correct current password has been entered
+        if user.verify_password(form.oldpassword.data):
+            user.password = form.password.data
+            db.session.commit()
+            flash('Password successfully changed')
+
+    # If there is a GET request, or there are errors in the form, return the view with the form
+    return render_template('changepw.html', title = 'Change Your Password', form = form)
