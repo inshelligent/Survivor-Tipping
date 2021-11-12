@@ -62,7 +62,7 @@ def index():
 # CONTESTANTS SECTION #
 # Public Contestants page which lists all the players/competitors in the show, separated by eliminated status
 @app.route('/contestants')
-@login_required
+#@login_required
 def contestants():
     #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
     # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
