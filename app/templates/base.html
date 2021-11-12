@@ -80,13 +80,36 @@
             <!-- Show any flashed messages on the page -->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
+              {% for message in messages %}
+                {% if 'already' in message or 'Invalid' in message %}
+                  <div class="alert alert-warning alert-dismissible fade show">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  <strong>Warning!</strong> {{ message }}
+                  </div>
+                {% else %}
+                  <div class="alert alert-success alert-dismissible fade show">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  <strong>Success!</strong> {{ message }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            <!-- old list format for flash messages 
             <ul class=flashes>
                 {% for message in messages %}
                 <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+                {% endfor %} 
+            </ul> -->
             {% endif %}
             {% endwith %}
+            {% if form %}
+              {% for field, errors in form.errors.items() %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+                </div>
+              {% endfor %}
+            {% endif %}
+            <!-- old list format for error messages 
             {% if form %}
             <ul class="errors">
                 {% for field, errors in form.errors.items() %}
@@ -95,7 +118,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            {% endif %}
+            {% endif %} -->
             {% block content %}
             {% endblock %}
         </div>

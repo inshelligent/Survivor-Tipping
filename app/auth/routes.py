@@ -59,9 +59,9 @@ def logout():
 def changepw():
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(id=current_user.id)
+        user = User.query.filter_by(id=current_user.id).first()
         # Check if the correct current password has been entered
-        if user.verify_password(form.oldpassword.data):
+        if user is not None and user.verify_password(form.oldpassword.data):
             user.password = form.password.data
             db.session.commit()
             flash('Password successfully changed')
