@@ -24,29 +24,20 @@ def load_from_file(fname):
             contents.append(row)
     return contents
 
-def get_contestants_in_game():
-    # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
-    # This is used to populate the choices in the Contestants for each voting choice dropdown.
-    contestant_choices = []
-    contestant_choices.insert(0, (0, ""))
-    for contestant in Contestant.query.all():
-        if contestant.is_eliminated==False:
-            choice = (contestant.id, contestant.name)
-            contestant_choices.append(choice)
-    return contestant_choices
-    #contestants = [(x.id, x.name) for x in Contestant.query.all() if x.is_eliminated==False]
-    #return contestants
-
 def get_current_contestants():
-    # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
-    # This is used to populate the choices in the Contestants for each voting choice dropdown.
+    ''' A helper function that returns a list of tuples with
+    contestant ids and names from the contestants table
+    if they have not been eliminated. Used to populate the 
+    vote choices for each voting choice dropdown. '''
     contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
+    contestants.insert(0, (0, "Select who's going home"))
     return contestants
 
 def get_current_tribals():
-    # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
-    # This is used to populate the choices for the tribal choice dropdown, in the Vote form and on the Eliminate Contestant admin page
-    # thanks to stackoverflow for how to format the date :)
+    ''' A helper function that returns a list of tuples with 
+    tribal ids and dates from the tribals table.
+    Used to populate the choices for the tribal choice dropdown
+    in the Vote form and on the Eliminate Contestant admin page '''
     tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.filter_by(voted_out_id=0)]
     return tribals
 
@@ -64,28 +55,24 @@ def index():
 @app.route('/contestants')
 #@login_required
 def contestants():
-    #players = load_from_file('competitors.csv')  # convert this to fetch from DB instead
-    # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
+    # Get records from the table and send to View to display contestants
     contestants = Contestant.query.all()
-    # Returns the view with list of contestants
     return render_template('contestants.html', players=contestants, title="Meet the contestants")
 
 
 # VOTING SECTION #
-# Send user to the Tipping page - allows user to place a tip, then saves to the votes table
+# Send user to the Tipping page - allows user to place a tip, then save to db
 @app.route('/vote', methods = ['GET', 'POST'])
 @login_required
 def vote():
     form = AddVoteForm()
-    # gets the choices for the current Tribals
+    # populate dropdowns
     form.tribal_id.choices = get_current_tribals()
-    # gets the choices for the contestants form field
-    form.first_choice_id.choices = get_contestants_in_game()
-    form.second_choice_id.choices = get_contestants_in_game()
-    form.third_choice_id.choices = get_contestants_in_game()
+    form.first_choice_id.choices = get_current_contestants()
+    form.second_choice_id.choices = get_current_contestants()
+    form.third_choice_id.choices = get_current_contestants()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
-        # The form has been submitted and the inputs are valid
         # Get data from the form and put in a Vote object
         vote = Vote()
         form.populate_obj(obj=vote)
@@ -99,20 +86,20 @@ def vote():
             # Returns the view with a message that the vote has been added
             return render_template('vote_successful.html', vote = vote, title="Vote Placed")
 
-        # leave the user on this screen with a message
+        # Already voted, leave the user on this screen with message
         flash('You have already voted in this Tribal!')
     
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('vote.html', form = form, title="Voting")
 
 
-# Leaderboard page which lists all the players/app users, ordered by score desc
+# Leaderboard page which lists all the users, ordered by score desc
 @app.route('/leaderboard')
 @login_required
 def leaderboard():
-    #fetch users from DB
-    # The records from the table are retrieved and put in an Iterable data structure (essentially a list)
-    user = user = User.query.order_by(User.score.desc())
-    # Returns the view with list of users ordered from highest scoring to lowest
+    # Retrieved users from the db and order by score highest to lowest
+    #user = user = User.query.order_by(User.score.desc())
+    user = User.query.order_by(User.score.desc())
+
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 
