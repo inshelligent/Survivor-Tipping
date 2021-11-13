@@ -28,11 +28,11 @@
         {% for chat in chats %}
             <tr class="table-row">
             {% if chat.user_id == current_user.id %}
-                <td class="table-cell">* {{ chat.comment_date.strftime("%d/%m/%Y, %H:%M:%S") }} *</td>
-                <td class="table-cell">* {{ chat.user.username }} *</td>
-                <td class="table-cell">* {{ chat.comment }} *</td>
+                <td class="table-cell"><b> {{ chat.comment_date.strftime("%d/%m/%Y, %H:%M:%S") }} </b></td>
+                <td class="table-cell"><b>  {{ chat.user.username }} </b></td>
+                <td class="table-cell"><b> {{ chat.comment }} </b></td>
             {% else %}
-                <td class="table-cell">{{ chat.comment_date }}</td>
+                <td class="table-cell">{{ chat.comment_date.strftime("%d/%m/%Y, %H:%M:%S") }}</td>
                 <td class="table-cell">{{ chat.user.username }}</td>
                 <td class="table-cell">{{ chat.comment }}</td>
             {% endif %}
