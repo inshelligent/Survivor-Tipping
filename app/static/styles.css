@@ -55,6 +55,15 @@ h1 {
   font-family: 'Acme', Arial, Helvetica, sans-serif;
 }
 
+.footerlink {
+  text-decoration: none;
+  color: #e3a537;
+}
+
+a.footerlink:hover {
+  color: white;
+}
+
 .table {
   border-color: #e3a537;
 }

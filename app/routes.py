@@ -102,3 +102,6 @@ def leaderboard():
 
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
