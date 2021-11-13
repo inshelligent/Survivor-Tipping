@@ -98,7 +98,6 @@ def vote():
 @login_required
 def leaderboard():
     # Retrieved users from the db and order by score highest to lowest
-    #user = user = User.query.order_by(User.score.desc())
     user = User.query.order_by(User.score.desc())
 
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
