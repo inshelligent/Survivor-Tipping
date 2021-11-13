@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer, default=0)
     votes = db.relationship('Vote', backref='user')
+    chats = db.relationship('Chat', backref='user')
 
     def __repr__(self):
             return f'{self.firstname}'
@@ -70,3 +71,10 @@ class Vote(db.Model):
     third_choice = db.relationship('Contestant', foreign_keys=third_choice_id)
     #user = db.relationship('User', foreign_keys=user_id)
     tribal = db.relationship('Tribal', foreign_keys=tribal_id)
+
+class Chat(db.Model):
+   id = db.Column(db.Integer, primary_key=True, nullable=False)
+   comment_date = db.Column(db.DateTime, nullable=False)
+   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+   comment = db.Column(db.String(120))
+

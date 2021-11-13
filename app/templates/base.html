@@ -43,6 +43,9 @@
                             <a class="nav-link {% if active_menu_item == 'Leaderboard' %} active {% endif %}" href="{{ url_for('leaderboard') }}">Leaderboard</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {% if active_menu_item == 'Chatroom' %} active {% endif %}" href="{{ url_for('chat') }}">Chatroom</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {% if active_menu_item == 'Charts' %} active {% endif %}" href="{{ url_for('chart.chart_list') }}">Charts</a>
                         </li>
                         {% if current_user.is_admin %}

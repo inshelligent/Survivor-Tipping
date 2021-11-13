@@ -118,6 +118,7 @@ def chat():
         chat.user_id = current_user.id
         db.session.add(chat)
         db.session.commit()
+        flash('Your chat message was successfully added!')
         return redirect(url_for('chat'))
     # Retrieved chats from the db and order by latest comment
     chats = Chat.query.order_by(Chat.comment_date.desc())

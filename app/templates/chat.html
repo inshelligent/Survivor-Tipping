@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% set active_menu_item = 'Chat' %}
+
+{% block content %}
+    <h1>Survivor Gossip</h1>
+    <form method="POST" class="form-horizontal">
+        {{ form.csrf_token }}
+        
+        <div class="form-group">
+            {{ form.comment.label (class='control-label col-sm-2')}}
+            <div class="col-sm-10">
+                {{ form.comment (class='form-control')}}
+            </div> 
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            {{ form.submit(class="btn btn-warning my-2") }}
+        </div>
+    </form>
+
+    <table class="table table-striped table-responsive">
+        <tr class="table-header">
+            <th class="table-cell">Date</th>
+            <th class="table-cell">User</th>
+            <th class="table-cell">Comment</th>
+        </tr>
+        <!-- Populate table from Chat table, latest comment first. -->
+        {% for chat in chats %}
+            <tr class="table-row">
+            {% if chat.user_id == current_user.id %}
+                <td class="table-cell">* {{ chat.comment_date }} *</td>
+                <td class="table-cell">* {{ chat.user.username }} *</td>
+                <td class="table-cell">* {{ chat.comment }} *</td>
+            {% else %}
+                <td class="table-cell">{{ chat.comment_date }}</td>
+                <td class="table-cell">{{ chat.user.username }}</td>
+                <td class="table-cell">{{ chat.comment }}</td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

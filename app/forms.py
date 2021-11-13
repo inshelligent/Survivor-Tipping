@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField
+from wtforms import SubmitField, SelectField, TextAreaField
 from wtforms.validators import InputRequired, NumberRange
 
 class AddVoteForm(FlaskForm):
@@ -9,3 +9,6 @@ class AddVoteForm(FlaskForm):
     third_choice_id = SelectField('Third vote:', coerce=int)
     submit = SubmitField('Place Vote')
 
+class AddChatForm(FlaskForm):
+    comment = TextAreaField('Enter message:', description="Share your thoughts on the latest Survivor gossip", validators = [InputRequired()])
+    submit = SubmitField('Add Chat')
