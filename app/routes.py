@@ -1,20 +1,19 @@
 import csv
-#from datetime import date, datetime
+from datetime import datetime
 #from sqlalchemy import desc, null
-from flask import render_template, flash
+from flask import render_template, flash, redirect, url_for
 #from sqlalchemy.sql.expression import null   # Flask is already imported in _init_
 from flask_login import current_user, login_required
 
 from app import app, db
 
-from app.models import Contestant, User, Tribal, Vote
-from app.forms import AddVoteForm
+from app.models import Contestant, User, Tribal, Vote, Chat
+from app.forms import AddVoteForm, AddChatForm
 
 
 TITLE = "Cosy Couch Survivor"
 
-# multi-purpose function that reads a file into a list then returns a list object
-# is used by homepage so it needs to be up here first
+# ---Old code, the chat is now a db table linked via users---
 def load_from_file(fname):
     # loads the contents from a given csv file
     contents = []
@@ -99,9 +98,28 @@ def vote():
 def leaderboard():
     # Retrieved users from the db and order by score highest to lowest
     user = User.query.order_by(User.score.desc())
-
+    
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+
+# Chat page which lists all the chats, ordered by datetime desc
+@app.route('/chat', methods = ['GET', 'POST'])
+@login_required
+def chat():
+    form = AddChatForm()
+    # Adds new chat comment using current user and current datetime
+    if form.validate_on_submit():
+        chat = Chat()
+        form.populate_obj(obj=chat)
+        chat.comment_date = datetime.now()
+        chat.user_id = current_user.id
+        db.session.add(chat)
+        db.session.commit()
+        return redirect(url_for('chat'))
+    # Retrieved chats from the db and order by latest comment
+    chats = Chat.query.order_by(Chat.comment_date.desc())
+
+    return render_template('chat.html', chats=chats, form=form, title="Australian Survivor 6 - Chat room")
