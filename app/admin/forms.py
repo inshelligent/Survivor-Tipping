@@ -7,7 +7,7 @@ class AddContestantForm(FlaskForm):
     country = StringField('Country', default='Australia')
     season = IntegerField('Season', default=6)
     name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])
-    age = IntegerField('Age', validators=[InputRequired(), NumberRange(min=18, max=90, message="Contestants must be aged between 18 and 90")])
+    age = IntegerField('Age', validators=[InputRequired(), NumberRange(min=18, max=80, message="Contestants must be aged between 18 and 80")])
     occupation = StringField('Occupation', validators=[Length(max=80)])
     description = TextAreaField('Description', validators=[Length(max=500)])
     is_eliminated = BooleanField('Is eliminated?', default=False)
