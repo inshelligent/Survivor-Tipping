@@ -110,19 +110,20 @@ def delete_contestant(id):
 @bp.route('/eliminate_contestant', methods=['GET', 'POST'])
 @admin_required
 def eliminate_contestant():
+    ''' Based on the results of a tribal council 
+    set a contestant;s eliminated state to True and update 
+    user scores based on this information'''
     form = EliminateContestantForm()
-    # gets the choices for the current Tribals
+    # Load dropdowns for the current Tribals and contestants
     form.tribal_id.choices = get_current_tribals()
-    # gets the choices for the contestants form field
     form.voted_out_id.choices = get_current_contestants()
-    # Check if the form has been submitted (is a POST request) and form inputs are valid
+
     if form.validate_on_submit():
-        # The form has been submitted and the inputs are valid
+        
         tribalTemp = Tribal()
         form.populate_obj(obj=tribalTemp)
-        # get the existing contestant info
+        # get the eliminated contestant info and update the is_eliminated field
         contestant = Contestant.query.get_or_404(tribalTemp.voted_out_id)
-        # update the is_eliminated field
         contestant.is_eliminated = True
         # get the existing tribal info
         tribal = Tribal.query.get_or_404(tribalTemp.tribal_id)
@@ -135,9 +136,7 @@ def eliminate_contestant():
             3 points if voted out is 2nd choice
             1 point if voted out is 3rd choice
         '''
-        # store the id of the eliminated contestant
-        voted_out = contestant.id
-        # get the votes for tonight's tribal and update the user scores
+        # get the votes for tribal and update the user scores
         for vote in Vote.query.filter_by(tribal_id=tribalTemp.tribal_id):
             user = vote.user
             if vote.first_choice_id == contestant.id:

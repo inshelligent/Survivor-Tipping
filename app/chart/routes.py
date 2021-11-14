@@ -72,7 +72,7 @@ def contestant_votes_pie_chart():
 @bp.route('/votes_by_tribal')
 @login_required
 def votes_by_tribal_chart():
-# Run query to get count of votes of each user and load into DataFrame
+# Run query to get count of votes of each user by tribal
     query = (
         "SELECT contestant.id as 'contestant_id', name, tribal.id as 'tribal_id', vote.id as 'vote_id', first_choice_id, "
         "count(vote.id) as 'votes' FROM contestant "
@@ -81,14 +81,24 @@ def votes_by_tribal_chart():
         "GROUP BY tribal_id, name "
         "ORDER BY tribal_id"
     )
+    # Put query data into Dataframe, draw the line chart and dump it into JSON format
     df = pd.read_sql(query, db.session.bind)
+    
+    chart = px.line(df, x="tribal_id", y="votes", color='name',
+    title='Contestant Votes over time', template='plotly_dark',
+    color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
+    chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
+    
+    '''
+    Original idea was to use set of bar charts as the data was discrete
+    The chart had display issues so opted for a line chart to show the journey
+    of contestants over time in terms of the votes they received
 
-    # Draw the chart and dump it into JSON format
     chart = px.bar(df, x ='name', y='votes',
     color='name', labels={'name': "Contestant", "votes": 'Votes'}
     , title='Contestant Votes by Tribal', template='plotly_dark', 
     barmode='group', facet_row="tribal_id", color_discrete_sequence= ['#fdca26', '#9c179e', '#d8576b', '#fb9f3a',  '#bd3786'])
-    chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
+    '''
 
     # Returns the template, including the JSON data for the chart
     return render_template('chart_page.html', title = 'Contestant Votes by Tribal', chart_JSON = chart_JSON)
