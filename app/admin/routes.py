@@ -4,8 +4,8 @@ from flask_login import current_user
 
 from app import db
 from app.admin import bp
-from app.models import Contestant, Season, Tribal, Vote
-from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm
+from app.models import Contestant, Season, Tribal, Vote, Season
+from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm, AddSeasonForm
 from app.auth.decorators import admin_required
 
 TITLE = "Cosy Couch Survivor"
@@ -27,7 +27,7 @@ def get_seasons():
     # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
     # This is used to populate the choices for the tribal choice dropdown, in the Vote form and on the Eliminate Contestant admin page
     # thanks to stackoverflow for how to format the date :)
-    seasons = [(season.id, season.country + " " + str(season.season_number)) for season in Season.query.all()]
+    seasons = [(season.id, season.country + " season " + str(season.season_number)) for season in Season.query.all()]
     return seasons
 
 @bp.route('/admin_home')
@@ -177,8 +177,28 @@ def add_tribal():
         # Adds the tribal object to session for creation and saves changes to db
         db.session.add(tribal)
         db.session.commit()
-        
+        flash('New tribal was added successfully!')
         # Returns the view with a message that the student has been added
         return redirect(url_for('admin.admin_home'))
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('add_tribal.html', form = form, title="Create a Tribal")
+
+# SEASON SECTION #
+# Admin Add Season Page - allows an admin to create a new season record
+@bp.route('/add_season', methods = ['GET', 'POST'])
+@admin_required
+def add_season():
+    form = AddSeasonForm()
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Get data from the form and put in a Season object
+        season = Season()
+        form.populate_obj(obj=season)
+        # Adds the season object to session for creation and saves changes to db
+        db.session.add(season)
+        db.session.commit()
+        flash('New season was added successfully!')
+        # Returns the view with a message that the season has been added
+        return redirect(url_for('admin.admin_home'))
+    # Returns the view with a message of how to bet, and list of remaining contestants
+    return render_template('add_season.html', form = form, title="Create a new season of Survivor")

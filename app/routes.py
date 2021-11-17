@@ -12,6 +12,7 @@ from app.forms import AddVoteForm, AddChatForm
 
 
 TITLE = "Cosy Couch Survivor"
+CURRENT_SEASON = 1
 
 # ---Old code, the chat is now a db table linked via users---
 def load_from_file(fname):
@@ -28,7 +29,7 @@ def get_current_contestants():
     contestant ids and names from the contestants table
     if they have not been eliminated. Used to populate the 
     vote choices for each voting choice dropdown. '''
-    contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
+    contestants = [(player.id, player.name) for player in Contestant.query.filter_by(season_id=CURRENT_SEASON, is_eliminated=False)]
     contestants.insert(0, (0, "Select who's going home"))
     return contestants
 
@@ -55,7 +56,7 @@ def index():
 #@login_required
 def contestants():
     # Get records from the table and send to View to display contestants
-    contestants = Contestant.query.all()
+    contestants = Contestant.query.filter_by(season_id=CURRENT_SEASON)
     return render_template('contestants.html', players=contestants, title="Meet the contestants")
 
 

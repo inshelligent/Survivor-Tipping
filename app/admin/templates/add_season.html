@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Admin: Create a Tribal event</h1>
+
+<form method="POST" class="form-horizontal">
+    {{ form.csrf_token }}
+    {{ form.country.label(class='form-label') }}
+    {{ form.country (class='form-control')}}
+    <br/>
+    {{ form.season_number.label(class='form-label') }}
+    {{ form.season_number (class='form-control')}}
+    <br/>
+    {{ form.submit(class_="btn btn-warning my-2") }}
+
+</form>
+{% endblock %}

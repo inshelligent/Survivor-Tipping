@@ -23,3 +23,8 @@ class EliminateContestantForm(FlaskForm):
 class AddTribalForm(FlaskForm):
     tribal_date = DateField('Tribal Date:', default=date.today(), validators = [InputRequired()])
     submit = SubmitField('Create Tribal')
+
+class AddSeasonForm(FlaskForm):
+    country = StringField('Country:', validators = [InputRequired()])
+    season_number = IntegerField("Season number:", validators=[InputRequired(), NumberRange(min=1)])
+    submit = SubmitField('Add Season')
