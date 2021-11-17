@@ -43,8 +43,7 @@ def create_db():
 
     # Create a contestant record for Hayley
     # description might be a bit long (92 characters truncated)
-    hayley = models.Contestant(season = 6,
-                                country = 'Australia',
+    hayley = models.Contestant(season_id = 1,
                                 name='Hayley', 
                                 age=31, 
                                 occupation='Pain Researcher', 
@@ -54,8 +53,7 @@ def create_db():
 
     # Create a contestant record for George
     # description might be a bit long (13 characters truncated)
-    george = models.Contestant(season = 6,
-                        country = 'Australia',
+    george = models.Contestant(season_id = 1,
                         name='George', 
                         age=31, 
                         occupation='Public Servant', 
@@ -64,8 +62,7 @@ def create_db():
     db.session.add(george)
 
     # Create a contestant record for Wai
-    wai = models.Contestant(season = 6,
-                        country = 'Australia',
+    wai = models.Contestant(season_id = 1,
                         name='Wai', 
                         age=38, 
                         occupation='Author', 
@@ -74,8 +71,7 @@ def create_db():
     db.session.add(wai)
 
     # Create a contestant record for Flick
-    flick = models.Contestant(season = 6,
-                        country = 'Australia',
+    flick = models.Contestant(season_id = 1,
                         name='Flick', 
                         age=28, 
                         occupation='Big Wave Surfer', 
@@ -85,8 +81,7 @@ def create_db():
 
     # Create a contestant record for Cara
     # description might be a bit long (46 characters truncated)
-    cara = models.Contestant(season = 6,
-                        country = 'Australia',
+    cara = models.Contestant(season_id = 1,
                         name='Cara', 
                         age=47, 
                         occupation='Real Estate Agent', 
@@ -130,6 +125,11 @@ def create_db():
                         is_admin = False,
                         score = 15)
     db.session.add(general3)
+
+    # add season
+    current = models.Season(country='Australia', season_number=6)
+    db.session.add(current)
+    
     # Save the created records to the database file
     db.session.commit()
 

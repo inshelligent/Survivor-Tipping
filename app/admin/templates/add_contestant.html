@@ -5,6 +5,10 @@
 <form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
 
+    {{ form.season_id.label (class='form-label') }}
+    {{ form.season_id (class='form-control')}}
+    <br/>
+
     {{ form.name.label (class='form-label') }}
     {{ form.name (class='form-control')}}
     <br/>

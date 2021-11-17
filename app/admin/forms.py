@@ -4,8 +4,7 @@ from wtforms import StringField, IntegerField, SubmitField, BooleanField, Select
 from wtforms.validators import InputRequired, Length, NumberRange
 
 class AddContestantForm(FlaskForm):
-    country = StringField('Country', default='Australia')
-    season = IntegerField('Season', default=6)
+    season_id = SelectField('season_id', default='1')
     name = StringField('Contestant Name', validators=[InputRequired(), Length(min=1, max=80)])
     age = IntegerField('Age', validators=[InputRequired(), NumberRange(min=18, max=80, message="Contestants must be aged between 18 and 80")])
     occupation = StringField('Occupation', validators=[Length(max=80)])

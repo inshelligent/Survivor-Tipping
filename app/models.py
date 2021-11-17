@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from sqlalchemy.orm import backref
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login_manager
@@ -41,8 +42,7 @@ def load_user(user_id):
 # this holds all the details for a contestant
 class Contestant(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    country = db.Column(db.Text)
-    season = db.Column(db.Integer)
+    season_id = db.Column(db.Integer, db.ForeignKey('season.id'), default=1)
     name = db.Column(db.String(80))
     age = db.Column(db.Integer)
     occupation = db.Column(db.String(80))
@@ -78,3 +78,8 @@ class Chat(db.Model):
    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
    comment = db.Column(db.String(120))
 
+class Season(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    country = db.Column(db.String(80), nullable=False)
+    season_number = db.Column(db.Integer)
+    contestant = db.relationship('Contestant', backref='season')

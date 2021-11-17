@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from app import db
 from app.admin import bp
-from app.models import Contestant, Tribal, Vote
+from app.models import Contestant, Season, Tribal, Vote
 from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm
 from app.auth.decorators import admin_required
 
@@ -23,6 +23,13 @@ def get_current_tribals():
     tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.filter_by(voted_out_id=0)]
     return tribals
 
+def get_seasons():
+    # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
+    # This is used to populate the choices for the tribal choice dropdown, in the Vote form and on the Eliminate Contestant admin page
+    # thanks to stackoverflow for how to format the date :)
+    seasons = [(season.id, season.country + " " + str(season.season_number)) for season in Season.query.all()]
+    return seasons
+
 @bp.route('/admin_home')
 @admin_required
 def admin_home():
@@ -40,6 +47,7 @@ def admin_contestants():
 @admin_required
 def add_contestant():
     form = AddContestantForm()
+    form.season_id.choices = get_seasons()
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
