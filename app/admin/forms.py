@@ -27,4 +27,5 @@ class AddTribalForm(FlaskForm):
 class AddSeasonForm(FlaskForm):
     country = StringField('Country:', validators = [InputRequired()])
     season_number = IntegerField("Season number:", validators=[InputRequired(), NumberRange(min=1)])
+    about = StringField("About:", validators=[InputRequired(), Length(min=10, max=250)])
     submit = SubmitField('Add Season')
