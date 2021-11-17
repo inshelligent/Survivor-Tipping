@@ -82,4 +82,5 @@ class Season(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     country = db.Column(db.String(80), nullable=False)
     season_number = db.Column(db.Integer)
+    about = db.Column(db.String(250))
     contestant = db.relationship('Contestant', backref='season')

@@ -9,37 +9,14 @@
         <h2>Please register or login</h2>
     {% endif %}
     <p>&nbsp;</p>
+    <h2>Current competition is {{ season_info.country }} Season {{ season_info.season_number }}</h2>
+    <p>{{ season_info.about }}</p>
+    <p>&nbsp;</p>
     <div class="container">
-      <div class="row">
-        <div class="col" width='70%'>
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="{{ url_for('static', filename='slide3.jpeg') }}" alt="Brains versus Brawn">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="{{ url_for('static', filename='slide2.jpeg') }}" alt="Tribal Council">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="{{ url_for('static', filename='slide3.jpeg') }}" alt="Let the games begin!">
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-          </div>
-        </div>
-        <!--<div class="col">
+        <img src="{{ url_for('static', filename='slide3.jpeg') }}" alt="Brains versus Brawn">     
+    </div>
+        <!--Old Chat display only, read from csv file
+        <div class="col">
           <h3>Catch Up on the latest survivor gossip!</h3>
           <table class="table table-striped table-responsive">
             <tr class="table-header">

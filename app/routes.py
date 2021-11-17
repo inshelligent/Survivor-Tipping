@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 
 from app import app, db
 
-from app.models import Contestant, User, Tribal, Vote, Chat
+from app.models import Contestant, User, Tribal, Vote, Chat, Season
 from app.forms import AddVoteForm, AddChatForm
 
 
@@ -43,11 +43,12 @@ def get_current_tribals():
 
 
 # HOMEPAGE
+# Includes summary of the current season
 @app.route('/')
 @app.route('/index')
 def index():
-    comments = load_from_file('chat.csv')  # TO-DO IF TIME
-    return render_template('index.html', title=TITLE, comments=comments)
+    season_info = Season.query.get_or_404(CURRENT_SEASON)
+    return render_template('index.html', title=TITLE, season_info=season_info)
 
 
 # CONTESTANTS SECTION #
