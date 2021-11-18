@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Admin: Create a New Season</h1>
-
+<h1>Admin: Edit season: {{ contestant_name }}</h1>
+NOTE: This competition avoids for only one season to be set as current.
+<p></p>
 <form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
     {{ form.country.label(class='form-label') }}

@@ -28,4 +28,8 @@ class AddSeasonForm(FlaskForm):
     country = StringField('Country:', validators = [InputRequired()])
     season_number = IntegerField("Season number:", validators=[InputRequired(), NumberRange(min=1)])
     about = StringField("About:", validators=[InputRequired(), Length(min=10, max=250)])
+    is_current = BooleanField('Set as current:')
     submit = SubmitField('Add Season')
+
+class EditSeasonForm(AddSeasonForm):   # nice bit of inheritance happening here!
+    submit = SubmitField('Save Season')

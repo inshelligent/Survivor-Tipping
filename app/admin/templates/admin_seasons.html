@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ title }} </h1>
+<table class="table">
+    <thead class="table-header">
+        <tr>
+            <th>Country</th>
+            <th>Season Number</th>
+            <th>About</th>
+            <th>Current</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in seasons %}
+        <tr class="table-row">
+            <td>{{ c.country }}</td>
+            <td>{{ c.season_number }}</td>
+            <td>{{ c.about }}</td>
+            <td>
+                {% if c.is_current %}
+                &#10004;
+                {% else %}
+                &#10008;
+                {% endif %}
+            </td>
+            <td>
+                <a class="btn btn-primary" href="{{ url_for('admin.edit_season', id=c.id) }}">
+                    Edit
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="{{ url_for('admin.delete_season', id=c.id) }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    <a class="btn btn-warning my-2" href="{{ url_for('admin.add_season') }}">
+        Add another season
+    </a>
+</p>
+{% endblock %}

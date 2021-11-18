@@ -5,15 +5,16 @@ from flask_login import current_user
 from app import db
 from app.admin import bp
 from app.models import Contestant, Season, Tribal, Vote, Season
-from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm, AddSeasonForm
+from .forms import AddContestantForm, EditContestantForm, EliminateContestantForm, AddTribalForm, AddSeasonForm, EditSeasonForm
 from app.auth.decorators import admin_required
 
 TITLE = "Cosy Couch Survivor"
+CURRENT_SEASON = 1
 
 def get_current_contestants():
     # A helper function that returns a list of tuples with contestant ids and names from the contestants table.
     # This is used to populate the choices in the Contestants for each voting choice dropdown.
-    contestants = [(player.id, player.name) for player in Contestant.query.filter_by(is_eliminated=False)]
+    contestants = [(player.id, player.name) for player in Contestant.query.filter_by(season_id=CURRENT_SEASON ,is_eliminated=False)]
     return contestants
 
 def get_current_tribals():
@@ -184,7 +185,15 @@ def add_tribal():
     return render_template('add_tribal.html', form = form, title="Create a Tribal")
 
 # SEASON SECTION #
-# Admin Add Season Page - allows an admin to create a new season record
+# Admin Manage Seasons Pages - allows an admin to add, edit or delete season record
+
+@bp.route('/admin_seasons')
+@admin_required
+def admin_seasons():
+    seasons = Season.query.all()
+    # Returns the view with list of seasons
+    return render_template('admin_seasons.html', seasons=seasons, title="Season Admin")
+
 @bp.route('/add_season', methods = ['GET', 'POST'])
 @admin_required
 def add_season():
@@ -195,10 +204,53 @@ def add_season():
         season = Season()
         form.populate_obj(obj=season)
         # Adds the season object to session for creation and saves changes to db
-        db.session.add(season)
-        db.session.commit()
-        flash('New season was added successfully!')
-        # Returns the view with a message that the season has been added
+        if Season.query.filter_by(is_current=True).count() == 0:
+            db.session.add(season)
+            db.session.commit()
+            flash('New season was added successfully!')
+        else:
+            flash("Season already is progress! Only one season can be set to current at a time.")
+        # Returns the view with a message
         return redirect(url_for('admin.admin_home'))
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('add_season.html', form = form, title="Create a new season of Survivor")
+
+@bp.route('/edit_season/<int:id>', methods = ['GET', 'POST'])
+@admin_required
+def edit_season(id):
+    # Retrieves the season record for the given id, if it exists
+    season = Season.query.get_or_404(id)
+
+    # Creates a form for editing the season record
+    form = EditSeasonForm(obj=season)
+
+    if form.validate_on_submit():
+        # The form has been submitted and the inputs are valid
+        # Create a Season object for saving to the database, mapping form inputs to object
+        form.populate_obj(season)
+        db.session.commit()
+        flash('Season details were saved successfully!')
+
+        return redirect(url_for('admin.admin_seasons'))
+
+    # When there is a GET request, the view with the form is returned
+    season_details = f'Season {season.season_number} of Survivor {season.country}'
+    return render_template('edit_season.html', form = form, season_details = season_details)
+
+@bp.route('/delete_season/<int:id>')
+@admin_required
+def delete_season(id):
+    # Retrieves the contestant record for the given id
+    season = Season.query.get_or_404(id)
+    # check that the season doesn't has any contestants associated
+    check_contestants = Contestant.query.filter_by(season_id=id).count()
+    if check_contestants == 0:
+        # The season record is deleted
+        db.session.delete(season)
+        db.session.commit()
+        flash('Season was deleted successfully!')
+    else:
+        flash('Season is in use and cannot be deleted!')
+    
+    # Returns the view that displays the list of contestants
+    return redirect(url_for('admin.admin_seasons'))

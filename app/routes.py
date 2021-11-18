@@ -12,6 +12,11 @@ from app.forms import AddVoteForm, AddChatForm
 
 
 TITLE = "Cosy Couch Survivor"
+
+''' get current season from db
+temp = Season.query.filter_by(is_current=True).first()
+CURRENT_SEASON = temp.id
+'''
 CURRENT_SEASON = 1
 
 # ---Old code, the chat is now a db table linked via users---

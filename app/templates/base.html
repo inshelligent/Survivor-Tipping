@@ -84,7 +84,7 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}
-                {% if 'already' in message or 'Invalid' in message %}
+                {% if 'already' in message or 'Invalid' in message or 'cannot' in message %}
                   <div class="alert alert-warning alert-dismissible fade show">
                   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                   <strong>Warning!</strong> {{ message }}

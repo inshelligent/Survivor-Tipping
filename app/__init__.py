@@ -128,7 +128,8 @@ def create_db():
 
     # add season
     current = models.Season(country='Australia', season_number=6,
-    about="Think you know the game of Survivor? Think again. For the first time in Australian Survivor history, 24 of the strongest and most strategic minds the competition has ever seen, will go head-to-head in the Australian Outback, where they’ll settle the age old question: Brains or Brawn?")
+    about="Think you know the game of Survivor? Think again. For the first time in Australian Survivor history, 24 of the strongest and most strategic minds the competition has ever seen, will go head-to-head in the Australian Outback, where they’ll settle the age old question: Brains or Brawn?",
+    is_current=True)
     db.session.add(current)
     
     # Save the created records to the database file
