@@ -90,6 +90,7 @@ def create_db():
     db.session.add(cara)
     db.session.commit()
 
+    # create an admin user and some general users
     admin = models.User(username = "admin",
                         password = os.environ.get('ADMIN_PASSWORD'),
                         email = "admin@blah.com.au",
@@ -125,19 +126,20 @@ def create_db():
                         is_admin = False,
                         score = 15)
     db.session.add(general3)
+    # Save the created records to the database file
+    db.session.commit()
 
     # add season
     current = models.Season(country='Australia', season_number=6,
     about="Think you know the game of Survivor? Think again. For the first time in Australian Survivor history, 24 of the strongest and most strategic minds the competition has ever seen, will go head-to-head in the Australian Outback, where they’ll settle the age old question: Brains or Brawn?",
     is_current=True)
     db.session.add(current)
-    
-    # Save the created records to the database file
+    # Save the season record to the database file
     db.session.commit()
 
     # create some test data for Tribals
     round1 = models.Tribal(tribal_date = date.today())
     db.session.add(round1)
-    # Save the created records to the database file
+    # Save the tribal record to the database file
     db.session.commit()
 
