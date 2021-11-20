@@ -73,7 +73,7 @@ def edit_contestant(id):
 
     # Creates a form for editing the contestant record, putting in the contestant record's details
     form = EditContestantForm(obj=contestant)
-    #form.name.choices = get_current_contestants()
+    form.season_id.choices = get_seasons()
 
     # Check if the form has been submitted (is a POST request) and form inputs are valid
     if form.validate_on_submit():

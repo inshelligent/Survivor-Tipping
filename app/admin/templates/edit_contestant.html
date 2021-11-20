@@ -6,19 +6,21 @@ To eliminate a contestant, use the <a href="{{ url_for('admin.eliminate_contesta
 
 <form method="POST" class="form-horizontal">
     {{ form.csrf_token }}
-
+    {{ form.season_id.label (class='form-label') }}
+    {{ form.season_id (class='form-control')}}
+    <br/>
     {{ form.name.label (class='form-label')}}
     {{ form.name (class='form-control')}}
-
+    <br/>
     {{ form.age.label (class='form-label')}}
     {{ form.age (class='form-control')}}
-
+    <br/>
     {{ form.occupation.label (class='form-label')}}
     {{ form.occupation (class='form-control')}}
-
+    <br/>
     {{ form.description.label (class='form-label')}}
     {{ form.description (class='form-control')}}
-
+    <br/>
     <label>
         {{ form.is_eliminated.label.text | safe }}
         {{ form.is_eliminated }}
