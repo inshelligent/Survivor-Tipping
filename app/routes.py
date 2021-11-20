@@ -10,7 +10,6 @@ from app import app, db
 from app.models import Contestant, User, Tribal, Vote, Chat, Season
 from app.forms import AddVoteForm, AddChatForm
 
-
 TITLE = "Cosy Couch Survivor"
 
 ''' get current season from db
@@ -19,30 +18,17 @@ CURRENT_SEASON = temp.id
 '''
 CURRENT_SEASON = 1
 
-# ---Old code, the chat is now a db table linked via users---
-def load_from_file(fname):
-    # loads the contents from a given csv file
-    contents = []
-    with open(fname) as fp:
-        reader = csv.DictReader(fp)
-        for row in reader:
-            contents.append(row)
-    return contents
-
+# HELPER FUNCTIONS
 def get_current_contestants():
-    ''' A helper function that returns a list of tuples with
-    contestant ids and names from the contestants table
-    if they have not been eliminated. Used to populate the 
-    vote choices for each voting choice dropdown. '''
+    # returns a list of tuples with contestant ids and names from the contestants table
+    # if they have not been eliminated. Used to populate the vote choices for each voting choice dropdown.
     contestants = [(player.id, player.name) for player in Contestant.query.filter_by(season_id=CURRENT_SEASON, is_eliminated=False)]
     contestants.insert(0, (0, "Select who's going home"))
     return contestants
 
 def get_current_tribals():
-    ''' A helper function that returns a list of tuples with 
-    tribal ids and dates from the tribals table.
-    Used to populate the choices for the tribal choice dropdown
-    in the Vote form and on the Eliminate Contestant admin page '''
+    # returns a list of tuples with tribal ids and dates from the tribals table.
+    # Used to populate the choices for the tribal choice dropdown in the Vote form and on the Eliminate Contestant admin page
     tribals = [(tribal.id, tribal.tribal_date.strftime("%a %d %b %Y")) for tribal in Tribal.query.filter_by(voted_out_id=0)]
     return tribals
 
@@ -108,9 +94,6 @@ def leaderboard():
     
     return render_template('leaderboard.html', players=user, title="Australian Survivor 6 - Leaderboard")
 
-@app.route('/privacy')
-def privacy():
-    return render_template('privacy.html')
 
 # Chat page which lists all the chats, ordered by datetime desc
 @app.route('/chat', methods = ['GET', 'POST'])
@@ -131,3 +114,10 @@ def chat():
     chats = Chat.query.order_by(Chat.comment_date.desc())
 
     return render_template('chat.html', chats=chats, form=form, title="Australian Survivor 6 - Chat room")
+
+
+# Privacy page in the footer
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+

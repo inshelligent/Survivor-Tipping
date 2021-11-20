@@ -27,7 +27,6 @@ def get_current_tribals():
 def get_seasons():
     # A helper function that returns a list of tuples with tribal ids and dates from the tribals table.
     # This is used to populate the choices for the tribal choice dropdown, in the Vote form and on the Eliminate Contestant admin page
-    # thanks to stackoverflow for how to format the date :)
     seasons = [(season.id, season.country + " season " + str(season.season_number)) for season in Season.query.all()]
     return seasons
 
@@ -36,6 +35,8 @@ def get_seasons():
 def admin_home():
     return render_template('admin.html', title=TITLE)
 
+
+# CONTESTANTS SECTION 
 @bp.route('/admin_contestants')
 @admin_required
 def admin_contestants():
@@ -163,7 +164,6 @@ def eliminate_contestant():
     return render_template('eliminate_contestant.html', form = form)
 
 
-
 # TRIBAL SECTION #
 # Admin Tribal Page - allows an admin to create a tribal record
 @bp.route('/add_tribal', methods = ['GET', 'POST'])
@@ -183,6 +183,7 @@ def add_tribal():
         return redirect(url_for('admin.admin_home'))
     # Returns the view with a message of how to bet, and list of remaining contestants
     return render_template('add_tribal.html', form = form, title="Create a Tribal")
+
 
 # SEASON SECTION #
 # Admin Manage Seasons Pages - allows an admin to add, edit or delete season record
@@ -220,17 +221,14 @@ def add_season():
 def edit_season(id):
     # Retrieves the season record for the given id, if it exists
     season = Season.query.get_or_404(id)
-
     # Creates a form for editing the season record
     form = EditSeasonForm(obj=season)
-
     if form.validate_on_submit():
         # The form has been submitted and the inputs are valid
         # Create a Season object for saving to the database, mapping form inputs to object
         form.populate_obj(season)
         db.session.commit()
         flash('Season details were saved successfully!')
-
         return redirect(url_for('admin.admin_seasons'))
 
     # When there is a GET request, the view with the form is returned
